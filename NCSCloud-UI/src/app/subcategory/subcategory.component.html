@@ -1,0 +1,139 @@
+<div class="table-responsive pl-4 pr-4">
+
+
+  <h2 align="left"> SubCategory List </h2>
+
+  <form class="form-inline my-2">
+    <label for="name" class="ml-sm-2"> Name:</label>
+    <input type="text" name="name" id="name" class="form-control form-control-sm ml-2" placeholder="name"
+      [(ngModel)]="form.searchParams.name">
+
+      <label for="name" class="ml-sm-2"> Category : </label>
+      <select [(ngModel)]="form.searchParams.category_id" class="form-control form-control-sm ml-2" name="category_id"
+			id="unitName" >
+			<option></option>
+			<option style="font-weight: bold;" value="" disabled selected>-Category-</option>
+			<option *ngFor="let l of form.preload.categoryList" [value]="l.id">
+				{{l.value}}
+			</option>
+		</select>
+    <!-- <label for="body" class="ml-sm-2">Price:</label>
+      <input type="text" id="price" name="price" class="form-control form-control-sm ml-sm-2 " placeholder="price"
+        [(ngModel)]="form.searchParams.price"> -->
+    <button (click)="search()" class="btn btn-outline-primary btn-sm ml-2"><i class="fa fa-search-plus"></i>
+      Search</button>
+    <button (click)="get(0)" class="btn btn-outline-primary btn-sm ml-2" data-toggle="modal" data-target="#editModal"><i
+        class="fa fa-plus"></i>
+      Add</button> &nbsp;
+  </form>
+
+
+  <table class="table table-sm table-striped my-1 ">
+    <thead>
+      <tr>
+        <th>S.No.</th>
+        <th>Name</th>
+        <th>Category name</th>
+
+
+
+
+
+        <th align="right">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let e of form.list; let i = index">
+        <td>{{pageIndex(i)}}</td>
+        <td>
+          <i *ngIf="e.status == 'Active'" class='fas fa-user-alt primary' style='font-size: 12px; color: green'>
+          </i>
+
+          <i *ngIf="e.status != 'Active'" class='fa fa-product-hunt primary' style='font-size: 12px; color: grey'>
+          </i> {{e.name}}
+        </td>
+        <td>{{e.category_name}}</td>
+
+
+
+        <td align="right">
+          <div class="row">
+            <button title="Edit" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#editModal"
+              (click)="get(e.id)">
+              <i class="fa fa-edit"></i>
+            </button> &nbsp;
+            <button title="Delete" class="btn btn-outline-danger btn-sm" (click)="delete(e.id)">
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<div class="modal" id="editModal" role="dialog">
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="model-dialog col-sm-6 mt-4  " role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Sub Category</h5>
+          <button class="btn btn-outline-secondary btn-sm" data-dismiss="modal" aria-label="Close">
+            <i class="fa fa-window-close"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
+            <p>
+              <form-error [form]="form"></form-error>
+            </p>
+            <div class="form-group form-row">
+              <label for="category_id" class="col-sm-2 col-form-label col-form-label-sm">Name<font color="red">*</font></label>
+              <div class="col">
+                <input id="name" name="name" placeholder="name" type="text" class="form-control "
+                  required [(ngModel)]="form.data.name" #name="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required>
+                <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
+                  <div *ngIf="name.errors.required" style="text-align: left;"> Name is required</div>
+                </div>
+              </div>
+
+            </div>
+            <div class="form-group form-row">
+
+              <label for="category_id" class="col-sm-2 col-form-label col-form-label-sm">category name<font color="red">*</font></label>
+              <div class="col">
+
+
+                <select class="form-control" required name="category_id" [(ngModel)]="form.data.category_id"
+                  #category_id="ngModel" [ngClass]="{ 'is-invalid': f.submitted && category_id.invalid }" required>
+
+                  style="cursor: pointer;">
+                  <option [value]="null" [disabled]="true" selected disabled>Select category</option>
+                  <option *ngFor="let obj of form.preload.categoryList" [value]="obj.id">{{obj.name}}</option>
+                </select>
+                <div *ngIf="f.submitted && category_id.invalid" class="invalid-feedback">
+                  <div *ngIf="category_id.errors.required" style="text-align: left;"> Category is required</div>
+                </div>
+              </div>
+
+            </div>
+
+        
+        <div class="modal-footer">
+          <button class="btn btn-outline-primary btn-sm">
+            <i class="fa fa-save"></i>
+            Save
+          </button>
+          <button class="btn btn-outline-secondary btn-sm" data-dismiss="modal"><i class="fa fa-window-close"></i>
+            Close</button>
+        </div>
+       </form>
+      </div>
+    </div>
+    <div class="col-sm-3">
+    </div>
+  </div>
+</div>

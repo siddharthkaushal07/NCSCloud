@@ -1,0 +1,239 @@
+
+<div class="table-responsive pl-4 pr-4">
+
+
+  <h2 align="left"> Product List </h2>
+  <form class="form-inline my-2">
+    <label for="name" class="ml-sm-2"> Name:</label>
+
+    <input type="text" name="name" id="name" class="form-control form-control-sm ml-2" placeholder="name"
+      [(ngModel)]="form.searchParams.name">
+
+    <label for="name" class="ml-sm-2"> Description:</label>
+
+    <input type="text" name="description" id="description" class="form-control form-control-sm ml-2"
+      placeholder="description" [(ngModel)]="form.searchParams.description">
+
+      <label for="name" class="ml-sm-2"> Category : </label>
+      <select [(ngModel)]="form.searchParams.category_id" class="form-control form-control-sm ml-2" name="category_id"
+			id="unitName" >
+			<option></option>
+			<option style="font-weight: bold;" value="" disabled selected>-Category-</option>
+			<option *ngFor="let l of form.preload.categoryList" [value]="l.id">
+				{{l.name}}
+			</option>
+		</select>
+
+    <label for="name" class="ml-sm-2"> SubCategory : </label>
+      <select [(ngModel)]="form.searchParams.subcategory_id" class="form-control form-control-sm ml-2" name="subcategory_id"
+			id="unitName" >
+			<option></option>
+			<option style="font-weight: bold;" value="" disabled selected>-SubCategory-</option>
+			<option *ngFor="let l of SubForm.list" [value]="l.id">
+				{{l.value}}
+			</option>
+		</select>
+
+    <!-- <label for="body" class="ml-sm-2">Price:</label>
+      <input type="text" id="price" name="price" class="form-control form-control-sm ml-sm-2 " placeholder="price"
+        [(ngModel)]="form.searchParams.price"> -->
+    <button (click)="search()" class="btn btn-outline-primary btn-sm ml-2"><i class="fa fa-search-plus"></i>
+      Search</button>
+    <button (click)="get(0)" class="btn btn-outline-primary btn-sm ml-2" data-toggle="modal" data-target="#editModal"><i
+        class="fa fa-plus"></i>
+      Add</button> &nbsp;
+  </form>
+  <table class="table table-sm table-striped my-1 ">
+    <thead>
+      <tr>
+        <tr style="background: skyblue">
+          <th> <input type="checkbox" id="select_all" name="select" >Select All </th>
+                    <th>S.No.</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Category</th>
+        <th>SubCategory</th>
+        <th>Specification</th>
+
+        <th align="right">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr *ngFor="let e of form.list; let i = index">
+        <td><input type="checkbox" class="checkbox" name="ids" (change)="getId(e.id)" >
+
+          </td>
+       
+        <td>{{pageIndex(i)}}</td>
+        <td>
+          <i *ngIf="e.status == 'Active'" class='fas fa-user-alt primary' style='font-size: 12px; color: green'>
+          </i>
+
+          <i *ngIf="e.status != 'Active'" class='fa fa-product-hunt primary' style='font-size: 12px; color: grey'>
+          </i> {{e.name}}
+        </td>
+
+        <td>{{e.description}}</td>
+       <td>{{e.category_name}}</td>
+        <td>{{e.subcategory_name}}</td>
+        <td>{{e.specification}}</td>
+
+
+        
+
+        <td align="right">
+          <div class="row">
+            <button title="Edit" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#editModal"
+              (click)="get(e.id)">
+              <i class="fa fa-edit"></i>
+            </button> &nbsp;
+            <button title="Delete" class="btn btn-outline-danger btn-sm" (click)="delete(e.id)">
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- <img src="{{end + session}}"> -->
+</div>
+
+<div class="modal" id="editModal" role="dialog">
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="model-dialog col-sm-6 mt-4  " role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Product</h5>
+          <button class="btn btn-outline-secondary btn-sm" data-dismiss="modal" aria-label="Close">
+            <i class="fa fa-window-close"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
+            <p>
+              <form-error [form]="form"></form-error>
+            </p>
+            <div class="form-group form-row">
+              <label for="name" class="col-sm-2 col-form-label col-form-label-sm">Name </label>
+              <div class="col">
+                <input id="name" name="name"  placeholder="Enter name" type="text" class="form-control form-control-sm"
+                  required [(ngModel)]="form.data.name" #name="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required>
+                <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
+                  <div *ngIf="name.errors.required" style="text-align: left;"> Name is required</div>
+                </div>
+              </div>
+            </div>
+
+            
+              <div class="form-group form-row">
+              <label for="description" class="col-sm-2 col-form-label col-form-label-sm">Description </label>
+              <div class="col">
+                <textarea id="description" name="description" placeholder="description" type="text"
+                  class="form-control form-control-sm" required [(ngModel)]="form.data.description"
+                  #description="ngModel" [ngClass]="{ 'is-invalid': f.submitted && description.invalid }" required></textarea>
+                <div *ngIf="f.submitted && description.invalid" class="invalid-feedback">
+                  <div *ngIf="description.errors.required" style="text-align: left;"> Description is required</div>
+                </div>
+              </div>
+            </div>
+          
+
+
+            <div class="form-group form-row">
+
+              <label for="category_id" class="col-sm-2 col-form-label col-form-label-sm">Category<font color="red">
+                  *
+                </font></label>
+              <div class="col">
+
+
+                <select class="form-control" required name="category_id" (change)="getSubCat()" [(ngModel)]="form.data.category_id"
+                  #category_id="ngModel" [ngClass]="{ 'is-invalid': f.submitted && category_id.invalid }" required>
+
+                  style="cursor: pointer;">
+                  <option [value]="null" [disabled]="true" selected disabled>Select category</option>
+                  <option *ngFor="let obj of form.preload.categoryList" [value]="obj.id">{{obj.name}}</option>
+                </select>
+                <div *ngIf="f.submitted && category_id.invalid" class="invalid-feedback">
+                  <div *ngIf="category_id.errors.required" style="text-align: left;"> Category is required</div>
+                </div>
+              </div>
+            </div>
+              <div class="form-group form-row">
+              <label for="subcategory_id" class="col-sm-2 col-form-label col-form-label-sm">Subcategory<font
+                  color="red">*</font></label>
+              <div class="col">
+
+
+                <select class="form-control" required name="subcategory_id"  [(ngModel)]="form.data.subcategory_id"
+                  #subcategory_id="ngModel" [ngClass]="{ 'is-invalid': f.submitted && subcategory_id.invalid }"
+                  required>
+                  <!-- <div *ngIf="f.submitted && subcategory_id.invalid" class="invalid-feedback">
+                    <div *ngIf="subcategory_id.errors.required" style="text-align: left;"> Subcategory is required</div>
+                  </div> -->
+                  
+                  <option [value]="null" [disabled]="true" selected disabled>Select subcategory</option>
+                  <option *ngFor="let obj of SubForm.list" [value]="obj.id">{{obj.name}}</option>
+                </select>
+                <div *ngIf="f.submitted && subcategory_id.invalid" class="invalid-feedback">
+                  <div *ngIf="subcategory_id.errors.required" style="text-align: left;"> subcategory is required</div>
+                </div>
+              </div>
+
+            </div>
+
+
+
+
+            <div class="form-group form-row">
+              <label for="specification" class="col-sm-2 col-form-label col-form-label-sm">Specification </label>
+              <div class="col">
+                <textarea id="specification" name="specification" placeholder="Enter specification" type="text"
+                  class="form-control form-control-sm" required [(ngModel)]="form.data.specification"
+                  #specification="ngModel" [ngClass]="{ 'is-invalid': f.submitted && specification.invalid }" required></textarea>
+                <div *ngIf="f.submitted && specification.invalid" class="invalid-feedback">
+                  <div *ngIf="specification.errors.required" style="text-align: left;"> Specification is required</div>
+                </div>
+              </div>
+
+            </div>
+            <div class="form-group form-row">
+              <label for="product_id" class="col-sm-2 col-form-label col-form-label-sm">Image<font color="red">
+                * </font></label>
+              
+  
+              <div class="col">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fa fa-picture-o grey-text"></i> </div>
+                  </div>
+                  <input type="file" id="customFile" name="image_id"
+                    (change)="onFileSelect($event.target.files)" accept="image/*">
+  
+                  <!-- <span class="alertRedColor"> {{form.inputerror.image}} </span> -->
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button class="btn btn-outline-primary btn-sm">
+                <i class="fa fa-save"></i>
+                Save
+              </button>
+              <button class="btn btn-outline-secondary btn-sm" data-dismiss="modal"><i class="fa fa-window-close"></i>
+                Close</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-sm-3">
+
+
+
+      </div>
+    </div>
+  </div>
+  </div>

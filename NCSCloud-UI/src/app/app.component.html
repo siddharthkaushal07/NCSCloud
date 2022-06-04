@@ -1,0 +1,91 @@
+<nav class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar"
+  style="height:40px ;  color:white ; background-color:#007bff;">
+
+  <a class="navbar-brand h1" role="button"  (click)="gotoHome()"  >
+    <img class="rounded" src="{{getDocThumbnail(userContext.appLogoId)}}" alt="{{ctxPath}}" height="38px" > 
+  </a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item dropdown" *ngFor="let e of menuItems">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          {{e.label}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a *ngFor="let item of e.submenu" class="dropdown-item" routerLink="../{{item.url}}">{{item.label}}</a>
+        </div>
+  </li>
+    </ul>
+    <form *ngIf="userContext.name !=null" class="form-inline my-2 my-lg-0">
+      <label for="roleId" class="col-sm-1 col-form-label col-form-label-sm">Role</label>
+      <select  id="roleId" name="roleId" [(ngModel)]="form.roleId"
+        class="form-control form-control-sm ml-2" (change)="changeRole()">
+        <option value="">--Role--</option>
+        <option *ngFor="let e of userContext.roles" [value]="e.key">{{e.value}}</option>
+      </select>
+    </form>
+    <ul class="navbar-nav">
+      <li class="nav-item dropdown" *ngIf="userContext.name !=null"><a class="nav-link dropdown-toggle"
+          id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">Apps <i class="fab fa-app-store-ios"></i>
+        </a>
+        <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+          <a  *ngFor="let e of userContext.appList" class="dropdown-item" href="{{e.appUrl}}{{userContext.skey}}" target="_blank">{{e.name}}</a>
+        </div>
+  </li>
+    </ul>    
+    <ul class="navbar-nav">
+      <li class="nav-item dropdown" *ngIf="userContext.name !=null">
+         <a class="nav-link dropdown-toggle"
+          id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="true"> 
+          <img class="rounded" src="{{getDocThumbnail(userContext.orgLogoId)}}"  height="38px">
+          <img class="rounded-circle" src="{{getDocThumbnail(userContext.imageId)}}"  height="38px"> 
+        </a>
+        <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+          <div class="dropdown-item"  >
+            <p align="center">
+              <img class="rounded-circle" src="{{getDocThumbnail(userContext.imageId)}}"  width="100px">
+              <br >{{userContext.name}} 
+              <br> ({{userContext.roleName}} )  
+              <br> <span  class="text-secondary" >{{userContext.loginId}}</span>   
+            </p>
+            <hr>
+          </div>
+          <a class="dropdown-item" href="#" routerLink="category">Category</a>
+          <a class="dropdown-item" href="#" routerLink="subcategory">SubCategory</a>
+          <a class="dropdown-item" href="#" routerLink="product">Product</a>
+          <a class="dropdown-item" href="#" routerLink="productmodel">ProductModel</a>
+          <a class="dropdown-item" href="#" routerLink="productprice">ProductPrice</a>
+          <a class="dropdown-item" href="#" routerLink="shopping">Shopping Cart</a>
+          <a class="dropdown-item" href="#" routerLink="catalogue">Catalogue</a>
+          <a class="dropdown-item" href="#" routerLink="shipping">Shipping Address</a>
+          <a class="dropdown-item" href="#" routerLink="offer">Offer</a>
+          <a class="dropdown-item" href="#" routerLink="tax">Tax</a>
+          <a class="dropdown-item" href="#" routerLink="category">Category</a>
+          <a class="dropdown-item" href="#" routerLink="domain">Domain</a>
+          <a class="dropdown-item" href="#" routerLink="enquiry">Enquiry</a>
+          <a class="dropdown-item" href="#" routerLink="supplier">Supplier</a>
+          <a class="dropdown-item" href="#" routerLink="complain">Complain</a>
+          <a class="dropdown-item" href="#" routerLink="productrating">ProductRating</a>
+          <a class="dropdown-item" href="#" routerLink="seller-regisration">Seller-Registration</a>
+          <a class="dropdown-item" href="#" routerLink="bussiness-setting">Bussiness-Setting</a>
+          <a class="dropdown-item" href="#" routerLink="order-item">Order-Item-List</a>
+          <a class="dropdown-item" href="#" routerLink="order">Order</a>
+         
+          <a class="dropdown-item" href="#" routerLink="myprofile">My Profile</a>
+
+          <a class="dropdown-item" href="#" routerLink="login/logout">Logout</a>
+        </div>
+  </li>
+    </ul>    
+  </div>
+</nav>
+<app-error></app-error>
+<router-outlet></router-outlet>

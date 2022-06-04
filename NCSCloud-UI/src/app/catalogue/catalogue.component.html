@@ -1,0 +1,135 @@
+<div class="table-responsive pl-4 pr-4">
+
+
+  <h2 align="left"> Catalogue List </h2>
+  <form class="form-inline my-2">
+    <label for="name" class="ml-sm-2"> Catalogue:</label>
+
+    <input type="text" name="name" id="name" class="form-control form-control-sm ml-2" placeholder="name"
+      [(ngModel)]="form.searchParams.name">
+
+    <!-- <label for="name" class="ml-sm-2"> Description:</label>
+  
+      <input type="text" name="description" id="description" class="form-control form-control-sm ml-2"
+        placeholder="description" [(ngModel)]="form.searchParams.description"> -->
+
+    <!-- <label for="body" class="ml-sm-2">Price:</label>
+        <input type="text" id="price" name="price" class="form-control form-control-sm ml-sm-2 " placeholder="price"
+          [(ngModel)]="form.searchParams.price"> -->
+    <button (click)="search()" class="btn btn-outline-primary btn-sm ml-2"><i class="fa fa-search-plus"></i>
+      Search</button>
+    
+     
+      
+
+  </form>
+  <button routerLink="/wish-List"  class="btn btn-outline-primary btn-sm ml-2 float-right">
+    <i class="fa fa-heart"></i>
+    Go To Wish-List</button>
+  <button routerLink="/shopping"  class="btn btn-outline-primary btn-sm ml-2 float-right">
+    <i class="fas fa-shopping-cart"></i>
+    Go To Cart</button> &nbsp;
+   
+   
+  <br>
+  <br>
+     <!-- <div> 
+     
+      <h4  *ngIf="!form.error" class="text-center text-success">{{form.message}} </h4>
+  </div> -->
+  <div  *ngIf="form.error && form.message!= null" class="alert alert-danger alert-dismissible col text-center">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+     {{form.message}}
+  </div>
+  <div *ngIf="!form.error && form.message != null" class="alert alert-success alert-dismissible col text-center">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    {{form.message}}
+  </div>
+  <table class="table table-sm table-striped my-1 ">
+    <thead>
+      <tr>
+        <th>S.No.</th>
+        <th>Image</th>
+       <!-- <th>Description</th>
+        <th>Category name</th>
+        <th>SubCategory name</th>
+        <th>Specification</th> -->
+        <th>Name</th>
+        <!-- <th>Quantity </th> -->
+        <th></th>
+        <th></th>
+      
+
+<!--   
+        <th align="right">Action</th> -->
+      </tr>
+    </thead>
+    <tbody>
+
+
+      <tr *ngFor="let e of form.list; let i = index">
+        <td>{{pageIndex(i)}}</td>
+       
+       
+       
+        <td>
+         <i *ngIf="e.status == 'Active'" class='fas fa-user-alt primary' style='font-size: 12px; color: green'>
+          </i>
+
+          <i *ngIf="e.status != 'Active'" class='fa fa-product-hunt primary' style='font-size: 12px; color: grey'>
+          </i>   <div  >
+            <a style="cursor: pointer;" (click)="forward1(e.id)">
+                      <img src="http://nenosystems.com:9097/NCSDOCS/api/doc/{{e.image_id}}" height="55px" width="80px">
+                    </a> </div>
+        </td>
+        <!-- <td>{{e.description}}</td>
+        <td>{{e.category_name}}</td>
+         <td>{{e.subcategory_name}}</td>
+         <td>{{e.specification}}</td>
+         -->
+ 
+
+     
+
+        <td>{{e.name}}</td>
+        <!-- <td>{{e.quantity}}</td> -->
+        <!-- <td >
+          <button class="btn btn-outline-success"  routerLink="/shopping" >Go To Cart</button>
+          </td> -->
+        <!-- <td >
+          <button class="btn btn-outline-success" (click)="addCart(e.id,e.name,e.image_id)" routerLink="/shopping" >Buy Now</button>
+          </td> -->
+          <td >
+            <button (click)="addCart(e.id,e.name,e.image_id)">Add to Cart</button>
+            </td>
+            <td >
+              <button (click)="addWishList(e.id,e.name,e.image_id)">Add to Wish-List</button>
+              </td>
+        <!-- <form ng-submit="processForm()">
+          <pre>{{ formData }}</pre>
+        
+            <ul ng-repeat="product in filtered = (products | orderBy:['name'] | filter:q)">
+              <li>{{ product.name }}
+                 <a ng-click="count = count + 1" ng-init="count=0" ng-model="formData.products">Increment - count: {{count}}
+                  <input type="number" ng-model="formData.{{product.id}}" />
+             </a>
+           </li>
+          </ul>
+        </form> -->
+<!--   
+        <td align="right">
+          <div class="row">
+            <button title="Edit" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#editModal"
+              (click)="get(e.id)">
+              <i class="fa fa-edit"></i>
+            </button> &nbsp;
+            <button title="Delete" class="btn btn-outline-danger btn-sm" (click)="delete(e.id)">
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
+        </td> -->
+      </tr>
+    </tbody>
+  </table>
+  <!-- <img src="{{end + session}}"> -->
+</div>

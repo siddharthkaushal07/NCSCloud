@@ -1,0 +1,43 @@
+
+<!------ Include the above in your HEAD tag ---------->
+<h3 class="text-left"> Seller-Registration</h3>
+    <div class="container">
+       
+        <div class="row ">
+        
+            <div class="card ">
+				<div class="card-body">
+					<form name="form" #f="ngForm" (ngSubmit)="sellerLogin()">
+						<div class="form-group">
+                            <div *ngIf="!form.error && form.message != null" class="alert alert-success alert-dismissible col text-center">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                {{form.message}}
+                              </div>
+                            <div  *ngIf="form.error && form.message!= null" class="alert alert-danger alert-dismissible col text-center">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                 {{form.message}}
+                              </div>
+                            <h2>Login Seller account</h2>
+						</div>
+						
+						<div class="form-group">
+							<label class="control-label" for="signupEmail">Email</label>
+							<input id="signupEmail" type="email" maxlength="50" class="form-control" [(ngModel)]="form.data.login" name="login"  >
+						</div>
+						
+						<div class="form-group">
+							<label class="control-label" for="signupPassword">Password</label>
+							<input id="signupPassword" type="password" maxlength="25" class="form-control" placeholder="at least 6 characters" length="40" 
+                            [(ngModel)]="form.data.password" name="password" >
+						</div>
+
+                        <div class="form-group">
+							<button id="signupSubmit" type="submit" class="btn btn-info btn-block" >Login</button>
+						</div>
+
+					
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>

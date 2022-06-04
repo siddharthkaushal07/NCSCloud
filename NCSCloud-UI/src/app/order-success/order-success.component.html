@@ -1,0 +1,54 @@
+<!-- <p>order-success works!</p> -->
+&nbsp;
+<div  class="alert alert-success alert-dismissible col text-center">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+   {{msg}}
+</div>
+<hr>
+<div class="table-responsive pl-4 pr-4">
+
+  
+  <div class="card">
+
+<div class="card-columns">
+  <div class="card bg-light" *ngFor="let e of form.list;">
+    <!-- data-toggle="modal" data-target="#myModal" -->
+    <a class="text-dark" style="cursor: pointer; text-decoration: none;"   >
+    
+    <div class="card-body text-center btn-outline-secondary">
+    
+      <ol class="text-center" style="list-style-type:none">
+      
+<li>
+        <img src="http://nenosystems.com:9097/NCSDOCS/api/doc/{{e.image_id}}" height="110px" width="110px">
+      </li>
+    <br>
+      <button (click)=setId(e.id) class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+       Description
+      </button>
+
+      <div class="collapse" id="collapseExample" *ngIf="e.id==oid">  
+        
+        <li><b>Name:- </b>{{e.productName}}</li>
+        <li><b>Price:- </b>{{e.price}}</li>
+        <li><b>GST:- </b>{{e.gst}}</li>
+        <li><b>Model_No:- </b>{{e.model_no}}</li>
+        <li><b>Quantity:- </b>{{e.quantity}}</li>
+        
+      </div>
+      
+       
+      </ol> 
+    
+      
+
+              
+            </div>
+               </a>
+  </div>
+</div>
+</div>
+</div>
+<hr>
+<button  type="button"  class=" btn btn-outline-danger btn-sm ml-2 float-right" routerLink="/order">Go To Order</button>
+<button  type="button"  class=" btn btn-outline-danger btn-sm ml-2 float-right" routerLink="/catalogue">Continue Shopping</button>

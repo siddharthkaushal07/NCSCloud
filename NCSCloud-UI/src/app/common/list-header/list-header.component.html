@@ -1,0 +1,28 @@
+<div class="row border-bottom">
+    <div class="col">
+        <h4 class="my-1">{{title}}</h4>
+    </div>
+    <div class="col">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-end my-1">
+                <li class="page-item">
+                    <button class="btn btn-outline-primary btn-sm">Page</button>
+                </li>
+                <li class="page-item">
+                    <select [(ngModel)]="$parent.form.pageNo" (change)="$parent.search()" 
+                     class="form-control form-control-sm text-primary border-primary">
+                        <option *ngFor="let i of $parent.form.pageNoList" [value]="i">{{i+1}}</option>
+                    </select>
+                </li>
+                <li class="page-item">
+                    <button class="btn btn-outline-primary btn-sm" (click)="$parent.previous()"><i
+                            class="fas fa-angle-double-left"></i></button>
+                </li>
+                <li class="page-item">
+                    <button class="btn btn-outline-primary btn-sm" (click)="$parent.next()"><i
+                            class="fas fa-angle-double-right"></i></button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

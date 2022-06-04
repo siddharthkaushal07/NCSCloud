@@ -1,0 +1,15 @@
+package com.sunilos.common.dao;
+import com.sunilos.common.BaseDAOInt;
+import com.sunilos.common.dto.ProductDTO;
+
+
+/**
+ * Product DAO interface.
+ * 
+ * @author SunilOS
+ * @version 1.0
+ * @Copyright (c) SunilOS
+ */
+public interface ProductDAOInt extends BaseDAOInt<ProductDTO> {
+
+}

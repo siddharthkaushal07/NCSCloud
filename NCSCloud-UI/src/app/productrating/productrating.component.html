@@ -1,0 +1,145 @@
+<div class="table-responsive pl-4 pr-4">
+
+    <!-- <app-list-header [title]="'Rating List'" [$parent]="getSelf()">
+    </app-list-header> -->
+
+    <h2 align ="left"> Rating List </h2> 
+
+    <form class="form-inline my-2">
+        <label for="rating" class="ml-sm-2">Rating </label>
+        <input  [(ngModel)]="form.searchParams.rating" id="rating" name="rating" 
+            type="text" placeholder="Rating"
+            class="form-control form-control-sm ml-2"  >
+        <label for="comment" class="ml-sm-2">Rating </label>
+        <input  [(ngModel)]="form.searchParams.comment" id="comment" name="comment" 
+            type="text" placeholder="Comment"
+            class="form-control form-control-sm ml-2"  >            
+        <button (click)="search()" class="btn btn-outline-primary btn-sm ml-2"><i class="fa fa-search-plus"></i>
+            Search</button> &nbsp;        
+        <button (click)="get(0)" class="btn btn-outline-primary btn-sm ml-2" data-toggle="modal"
+            data-target="#editModal"><i class="fa fa-plus"></i>
+            Add</button> &nbsp;
+    </form>
+
+    <table class="table table-sm table-striped my-1 ">
+        <thead>
+            <tr>
+                <th>S.No.</th>
+                <th>Rating</th>
+                <th>Comment</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>IP</th>
+				<th>Org</th>
+				<th>Skey</th>	
+				<th>Created By</th>	
+                <th align="right">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let e of form.list; let i = index">
+                <td>{{pageIndex(i)}}</td>
+                <td>
+					<span *ngFor="let rat of [].constructor(e.rating)"  class="checked" >
+						<i class="fa fa-star"></i>
+					</span>
+				</td>
+                <td>{{e.comment}}</td>
+                <td>{{e.name}}</td>
+                <td>{{e.emailId}}</td>
+                <td>{{e.ip_address}}</td>
+				<td>{{e.orgName}}</td>   
+				<td>{{e.skey}}</td>  
+				<td>{{e.createdBy}}</td>  
+                <td align="right">
+                    <div class="row">
+                        <button title="Edit" class="btn btn-outline-success btn-sm" data-toggle="modal"
+                            data-target="#editModal" (click)="get(e.id)">
+                            <i class="fa fa-edit"></i>
+                        </button>
+                        &nbsp;
+                        <button title="Delete" class="btn btn-outline-danger btn-sm" (click)="delete(e.id)">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- <app-list-header [$parent]="getSelf()"></app-list-header> -->
+</div>
+
+
+<div class="modal" id="editModal" role="dialog">
+	<div class="row">
+		<div class="col-sm-2"></div>
+		<div class="model-dialog col-sm-8 mt-4" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Rating</h5>
+					<button class="btn btn-outline-secondary btn-sm" data-dismiss="modal" aria-label="Close">
+						<i class="fa fa-window-close"></i>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" role="form" #uiForm="ngForm">
+						<p>
+							<form-error [form]="form"></form-error>
+						</p>
+						<div class="form-group form-row">
+							<label for="rating" class="col-sm-1 col-form-label col-form-label-sm ">Rating
+							</label>
+							<div class="col">
+								<span (click)="changeRating(1)" [ngClass]="{checked: form.data.rating >= 1 }" ><i class="fa fa-star"></i></span>
+								<span (click)="changeRating(2)" [ngClass]="{checked:  form.data.rating >= 2 }" ><i class="fa fa-star"></i></span>
+								<span (click)="changeRating(3)" [ngClass]="{checked:  form.data.rating >= 3 }"  ><i class="fa fa-star"></i></span>
+								<span (click)="changeRating(4)" [ngClass]="{checked:  form.data.rating >= 4 }"  ><i class="fa fa-star"></i></span>
+								<span (click)="changeRating(5)"  [ngClass]="{checked:  form.data.rating >= 5 }"  ><i class="fa fa-star"></i></span>
+							</div>
+						</div>      
+						<div class="form-group form-row">
+							<label for="comment" class="col-sm-1 col-form-label col-form-label-sm ">Comment:
+							</label>
+                            <div class="col">
+                                <textarea id="comment" name="comment" placeholder="Comment" type="text" 
+								class="form-control form-control-sm" rows="5" [(ngModel)]="form.data.comment">
+                                </textarea>
+                            </div>							
+						</div>        
+						<div class="form-group form-row">
+                            <label for="product_id" class="col-sm-1 col-form-label col-form-label-sm">Product name<font color="red">
+                                * </font></label>
+                            <div class="col">
+                              <select class="form-control" id="product_id" required name="product_id" [(ngModel)]="form.data.product_id" >
+                              required>
+                                <option *ngFor="let obj of form.preload.productList" [value]="obj.id">{{obj.name}}</option>
+                              </select>
+                              <!-- <div *ngIf="f.submitted && product_id.invalid" class="invalid-feedback">
+                                <div *ngIf="product_id.errors.required" style="text-align: left;"> Product is required</div>
+                              </div> -->
+                            </div>
+						</div>		
+						<div class="form-group form-row">
+							<label for="emailId" class="col-sm-1 col-form-label col-form-label-sm ">Email:
+							</label>
+							<div class="col">
+								<input  [(ngModel)]="form.data.emailId" id="emailId" name="emailId" placeholder="Enter emailId"
+									type="email" class="form-control form-control-sm" >
+							</div>
+						</div>																		                            
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline-primary btn-sm" 
+					[disabled]="!uiForm.valid"  (click)="save()">
+					    <i	class="fa fa-save"></i> Save
+					</button>
+					&nbsp;
+					<button class="btn btn-outline-secondary btn-sm" data-dismiss="modal"><i
+							class="fa fa-window-close"></i> Close</button>
+				</div>
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+	</div>
+</div>

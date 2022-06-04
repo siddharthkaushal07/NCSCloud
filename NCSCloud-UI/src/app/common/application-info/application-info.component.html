@@ -1,0 +1,85 @@
+<div class="table-responsive pl-4 pr-4">
+
+    <app-list-header [title]="'App Information'" [$parent]="getSelf()">
+    </app-list-header>
+
+    <table class="table table-sm table-striped my-1 ">
+        <thead>
+
+            <tr>
+                <th colspan="2" scope="col">Application</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            <tr *ngFor="let e of application; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{e[0]}}</td>
+                <td>{{e[1]}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table table-sm table-striped my-1 ">
+        <thead>
+
+            <tr>
+                <th colspan="2" scope="col">Session</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            <tr *ngFor="let e of session; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{e[0]}}</td>
+                <td>{{e[1]}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table table-sm table-striped my-1 ">
+        <thead>
+
+            <tr>
+                <th colspan="2" scope="col">Request</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            <tr *ngFor="let e of request let i = index">
+                <td>{{i+1}}</td>
+                <td>{{e[0]}}</td>
+                <td>{{e[1]}}</td>
+            </tr>
+        </tbody>
+    </table>
+   <table class="table table-sm table-striped my-1 ">
+        <thead>
+            <tr>
+                <th colspan="2" scope="col">Local Storage</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let e of getLocalStorageKeys() let i = index">
+                <td>{{i+1}}</td>
+                <td>{{e}}</td>
+                <td>{{getLocalStorageValue(e)}}</td>
+            </tr>
+        </tbody>
+    </table>    
+
+    <h4>Configuration Files</h4>
+
+    <div class="row border-top">
+        <a href='{{getConfFile("application.properties")}}'
+            target="_blank">application.properties</a> &nbsp; |&nbsp; <a
+            href='{{getConfFile("application.yml")}}'
+            target="_blank">application.yml</a>&nbsp;
+        |&nbsp; <a   href='{{getConfFile("logback-spring.xml")}}'
+            target="_blank">logback-spring.xml</a> &nbsp; |&nbsp; <a
+            href='{{getConfFile("messages.properties")}}'
+            target="_blank">messages.properties</a>
+
+    </div>
+
+</div>

@@ -1,0 +1,62 @@
+<div class="container_fluid m-4">
+    <p>
+        <form-error [form]="form"></form-error>
+    </p>
+    <h4 class="border-bottom pt-2">Registration</h4>
+    <form *ngIf="!isLogin" class="was-validated"   #signupform="ngForm" >
+        <div class="form-group form-row">
+            <label for="firstName" class="col-sm-1 col-form-label col-form-label-sm">
+                First Name
+            </label>
+            <div class="col-sm-2">
+                <input type="firstName" class="form-control form-control-sm" id="firstName" placeholder="firstName"
+                    name="firstName" required [(ngModel)]="form.data.firstName">
+            </div>
+        </div>
+
+        <div class="form-group form-row">
+            <label for="lastName" class="col-sm-1 col-form-label col-form-label-sm">
+                lastName
+            </label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control form-control-sm" id="lastName" placeholder="lastName"
+                    name="lastName" required [(ngModel)]="form.data.lastName">
+            </div>
+        </div>
+
+        <div class="form-group form-row">
+            <label for="login" class="col-sm-1 col-form-label col-form-label-sm">
+                Login Id
+            </label>
+            <div class="col-sm-2">
+                <input type="email" class="form-control form-control-sm" id="login" placeholder="login" name="login"
+                    required [(ngModel)]="form.data.login">
+            </div>
+        </div>
+        <div class="form-group form-row">
+            <label for="email" class="col-sm-1 col-form-label col-form-label-sm">
+                Password
+            </label>
+            <div class="col-sm-2">
+                <input type="password" class="form-control form-control-sm" id="password" name="password"
+                    placeholder="Password" required [(ngModel)]="form.data.password">
+            </div>
+        </div>
+        <div class="form-group form-row">
+            <div class="col-sm-3 d-flex justify-content-end">
+                <button type="submit" (click)="signup()" [disabled]="!signupform.valid"  class="btn btn-outline-primary btn-sm"><i
+                        class="fa fa-save"></i>SignUp</button>
+                &nbsp;
+            </div>
+        </div>
+
+    </form>
+</div>
+<div *ngIf="isLogin" class="form-group form-row ml-5">
+    <label for="email" class="col-sm-12 col-form-label col-form-label-sm">
+        <h4>Hi, {{form.data.firstName}}</h4>
+        <p>You have been registered, your login id is {{form.data.login}}</p>
+        <p>Please click button to login</p>
+    </label>
+    <a class="btn btn-outline-primary btn-sm" href="login"><i class="fa fa-save"></i>Login</a>
+</div>

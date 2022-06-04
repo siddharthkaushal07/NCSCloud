@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+ <script src="https://checkout.razorpay.com/v1/checkout.js"></script> 
+
+
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.1.0-11/css/all.css" integrity="sha512-xO/VZFNBvip9IT+BD6Nq/pHdBvKeFcwygKqARlegjQ+5A68KsMSYrPbGP1oYow5ec9Tqq8peJXcn5J1bD4O00w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+ <script>
+
+$('#checkbox-value').text($('#checkbox1').val());
+
+$("#checkbox1").on('change', function() {
+  if ($(this).is(':checked')) {
+    $(this).attr('value', 'true');
+  } else {
+    $(this).attr('value', 'false');
+  }
+  
+  $('#checkbox-value').text($('#checkbox1').val());
+});
+</script>
+
+
+</head>
+
+<body>
+  <app-root></app-root>
+  <app-shopping></app-shopping>
+  <app-payment></app-payment>
+</body>
+</html>

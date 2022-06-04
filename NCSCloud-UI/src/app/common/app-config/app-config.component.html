@@ -1,0 +1,98 @@
+<div class="table-responsive pl-4 pr-4">
+
+    <app-list-header [title]="'App Config Params'" [$parent]="getSelf()">
+    </app-list-header>
+
+    <form class="form-inline my-2">
+        <label for="paramName" class="ml-sm-2">Name </label>
+        <input  [(ngModel)]="form.searchParams.paramName" name="paramName" type="text"
+            class="form-control form-control-sm ml-2" id="paramName" placeholder="paramName">
+        <label for="paramValue" class="ml-sm-2">Value</label>
+        <input  [(ngModel)]="form.searchParams.paramValue" name="paramValue" type="text"
+            class="form-control form-control-sm ml-2" id="paramValue" placeholder="paramValue">
+        <button (click)="search()" class="btn btn-outline-primary btn-sm ml-2"><i class="fa fa-search-plus"></i>
+            Search</button> &nbsp;
+        <button (click)="get(0)" class="btn btn-outline-primary btn-sm ml-2" data-toggle="modal"
+            data-target="#editModal"><i class="fa fa-plus"></i>
+            Add</button> &nbsp;
+    </form>
+
+    <table class="table table-sm table-striped my-1 ">
+        <thead>
+            <tr>
+                <th>S.No.</th>
+                <th>Name</th>
+				<th>Value</th>
+                <th align="right">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let e of form.list; let i = index">
+                <td>{{pageIndex(i)}}</td>
+                <td>{{e.paramName}}</td>
+				<td>{{e.paramValue}}</td>
+                <td align="right">
+                    <div class="row">
+                        <button title="Edit" class="btn btn-outline-success btn-sm" data-toggle="modal"
+                            data-target="#editModal" (click)="get(e.id)">
+                            <i class="fa fa-edit"></i>
+                        </button>
+                        &nbsp;
+                        <button title="Delete" class="btn btn-outline-danger btn-sm" (click)="delete(e.id)">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <app-list-header [$parent]="getSelf()"></app-list-header>
+</div>
+
+
+<div class="modal" id="editModal" role="dialog">
+	<div class="row">
+		<div class="col-sm-2"></div>
+		<div class="model-dialog col-sm-8 mt-4  " role="document">
+
+			<div class="modal-content">
+				<div class="modal-header">
+
+					<h5 class="modal-title">App Config Param</h5>
+					<button class="btn btn-outline-secondary btn-sm" data-dismiss="modal" aria-label="Close">
+						<i class="fa fa-window-close"></i>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" role="form" #uiForm="ngForm">
+						<p>
+							<form-error [form]="form"></form-error>
+						</p>
+						<div class="form-group form-row">
+							<label for="paramName" class="col-sm-1 col-form-label col-form-label-sm ">App Version :
+							</label>
+							<div class="col">
+								<input required [(ngModel)]="form.data.paramName" name="appVersion" type="text"
+									class="form-control form-control-sm" id="paramName" placeholder="Enter name">
+							</div>
+							<label for="paramValue" class="col-sm-1 col-form-label col-form-label-sm ">Value :
+							</label>
+							<div class="col">
+								<input required [(ngModel)]="form.data.paramValue" name="recordsPerPage" type="text"
+									id="paramValue" class="form-control form-control-sm" id="paramValue" placeholder="Enter value">
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline-primary btn-sm" (click)="save()"><i
+							class="fa fa-save"></i> Save</button>
+					&nbsp;
+					<button class="btn btn-outline-secondary btn-sm" data-dismiss="modal"><i
+							class="fa fa-window-close"></i> Close</button>
+				</div>
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,35 @@
+<div class="table-responsive pl-4 pr-4">
+
+    <app-list-header [title]="'Errro Log'" [$parent]="getSelf()">
+    </app-list-header>
+
+    <form class="form-inline my-2">
+        <label for="type" class="ml-sm-2">S: </label>
+        <input type="text" name="type" id="type" class="form-control form-control-sm ml-2" placeholder="type" [(ngModel)]="form.searchParams.type">
+        <label for="body" class="ml-sm-2">Message</label>
+        <input type="text" id="message" name="message" class="form-control form-control-sm ml-sm-2 "  placeholder="message"  [(ngModel)]="form.searchParams.message" >
+        <button (click)="search()" class="btn btn-outline-primary btn-sm ml-2"><i class="fa fa-search-plus"></i>
+            Search</button>
+    </form>
+    <table class="table table-sm table-striped my-1 ">
+        <thead>
+            <tr>
+                <th>S.No.</th>
+                <th>Type</th>
+                <th>Message</th>
+                <th>User</th>                
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let e of form.list; let i = index">
+                <td>{{pageIndex(i)}}</td>
+                <td>{{e.type}}</td>
+                <td><code>{{e.message}}</code></td>
+                <td>{{e.createdBy}}</td>
+                <td>{{e.createdDatetime | date:'medium'  }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <app-list-header [$parent]="getSelf()"></app-list-header>
+</div>

@@ -1,0 +1,445 @@
+
+
+<div class="table-responsive pl-4 pr-4">
+  
+
+    <h2 align="left"> Shipping List </h2>
+  
+    <form class="form-inline my-2">
+      <!-- <label for="name" class="ml-sm-2">  Name:</label>
+  
+      <input type="text" name="name" id="name" class="form-control form-control-sm ml-2" placeholder="name"
+        [(ngModel)]="form.searchParams.name"> -->
+  
+      <!-- <label for="name" class="ml-sm-2"> Description:</label>
+            
+              <input type="text" name="description" id="description" class="form-control form-control-sm ml-2" placeholder="description"
+                [(ngModel)]="form.searchParams.description"> -->
+  
+      <!-- <label for="body" class="ml-sm-2">Price:</label>
+            <input type="text" id="price" name="price" class="form-control form-control-sm ml-sm-2 " placeholder="price"
+              [(ngModel)]="form.searchParams.price"> -->
+      <!-- <button (click)="search()" class="btn btn-outline-primary btn-sm ml-2"><i class="fa fa-search-plus"></i>
+        Search</button> -->
+      <button (click)="get(0)" class="btn btn-outline-primary btn-sm ml-2" data-toggle="modal" data-target="#editModal"><i
+          class="fa fa-plus"></i>
+        Add</button> &nbsp;
+    </form>
+  
+<hr>
+<form>
+<div class="card-columns">
+  <div class="card bg-light" *ngFor="let e of form.list;">
+    <!-- data-toggle="modal" data-target="#myModal" -->
+    <a class="text-dark" style="cursor: pointer; text-decoration: none;"   >
+
+    <div class="card-body text-center btn-outline-secondary">
+    
+      <ol class="text-left" style="list-style-type:none">
+        <li><b>FirstName:- </b>{{e.name}}</li>
+        <li><b>LastName:- </b>{{e.lastname}}</li>
+        <li><b>MobileNo:- </b>{{e.mobileno}}</li>
+        <li><b>Address:- </b>{{e.address}}</li>
+        <li><b>PinCode:- </b>{{e.pincode}}</li>
+        <li><b>City:- </b>{{e.city}}</li>
+        <li><b>State:- </b> {{e.state}} </li>
+       
+      </ol> 
+    
+      
+<button  title="Edit" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#editModal"
+                (click)="get(e.id)">
+                <i class="fa fa-edit"></i>
+              </button> &nbsp;
+              <button title="Delete" class="btn btn-outline-danger btn-sm" (click)="delete(e.id)">
+                <i class="fa fa-trash"></i>
+              </button>
+              &nbsp;
+             
+                
+              <input type="checkbox" name="button" [value]="checked" (change)="checkedShipp($event)" (click)="getShipping(e.id)" >
+
+              
+            </div>
+               </a>
+  </div>
+</div>
+
+</form>
+
+
+
+  </div>
+  
+  <div class="modal" id="editModal" role="dialog">
+    <div class="row">
+      <div class="col-sm-3"></div>
+      <div class="model-dialog col-sm-6 mt-4  " role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Shipping   </h5>
+            <button class="btn btn-outline-secondary btn-sm" data-dismiss="modal" aria-label="Close">
+              <i class="fa fa-window-close"></i>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form name="form" #f="ngForm" (ngSubmit)="save()" novalidate>
+              <p>
+                <form-error [form]="form"></form-error>
+              </p>
+             
+              <div class="form-group form-row">
+                <label for="name"  class="col-sm-2 col-form-label col-form-label-sm">First Name <font color ="red">*</font></label>
+                <div class="col">
+                  <input id="name" name="name" placeholder="Enter Name" type="text" class="form-control form-control-sm"
+                    [(ngModel)]="form.data.name" 
+                    #name="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required>
+                <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
+                  <div *ngIf="name.errors.required" style="text-align: left;"> Fname is required</div>
+                </div>
+                     <!-- [ngClass]="{ 'is-invalid': f.submitted && name.invalid }"
+                    required
+                  <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
+                    <div *ngIf="name.errors.required" style="text-align: left;"> Name is required</div> -->
+                  </div>
+               </div>
+  
+                  <div class="form-group form-row">
+                <label for="lastname" class="col-sm-2 col-form-label col-form-label-sm">Last Name <font color ="red">*</font></label>
+                <div class="col">
+                  <input id="lastname" name="lastname" placeholder=" Enter last name" type="text"
+                    class="form-control form-control-sm" required [(ngModel)]="form.data.lastname" #lastname="ngModel">
+                    <!-- [ngClass]="{ 'is-invalid': f.submitted && lastname.invalid }" required>
+                  <div *ngIf="f.submitted && lastname.invalid" class="invalid-feedback">
+                    <div *ngIf="lastname.errors.required" style="text-align: left;"> LastName is required</div>
+                  </div> -->
+                </div>
+                </div>
+             
+              <div class="form-group form-row">
+                <label for="mobileno" class="col-sm-2 col-form-label col-form-label-sm">Mobile No <font color ="red">*</font></label>
+                <div class="col">
+                  <input id="mobileno" name="mobileno" placeholder="Enter Mobile No" type="text"
+                    class="form-control form-control-sm" required [(ngModel)]="form.data.mobileno" #mobileno="ngModel">
+                    <!-- [ngClass]="{ 'is-invalid': f.submitted && mobileno.invalid }" required>
+                  <div *ngIf="f.submitted && mobileno.invalid" class="invalid-feedback">
+                    <div *ngIf="mobileno.errors.required" style="text-align: left;"> Mobile no is required</div>
+                  </div> -->
+                </div>
+            </div>
+                <div class="form-group form-row">
+                    <label for="address" class="col-sm-2 col-form-label col-form-label-sm">Address <font color ="red">*</font></label>
+                    <div class="col">
+                      <input id="address" name="address" placeholder="Enter Address" type="text"
+                        class="form-control form-control-sm" required [(ngModel)]="form.data.address" #address="ngModel">
+                        <!-- [ngClass]="{ 'is-invalid': f.submitted && address.invalid }" required> -->
+                      <!-- <div *ngIf="f.submitted && address.invalid" class="invalid-feedback">
+                        <div *ngIf="address.errors.required" style="text-align: left;"> address is required</div>
+                      </div> -->
+                    </div>
+                </div>
+            
+                <div class="form-group form-row">
+                    <label for="pincode" class="col-sm-2 col-form-label col-form-label-sm">PIN Code <font color ="red">*</font></label>
+                    <div class="col">
+                      <input id="pincode" name="pincode" placeholder="Enter Pin code" type="text"
+                        class="form-control form-control-sm" required [(ngModel)]="form.data.pincode" #pincode="ngModel">
+                        <!-- [ngClass]="{ 'is-invalid': f.submitted && pincode.invalid }" required>
+                      <div *ngIf="f.submitted && pincode.invalid" class="invalid-feedback">
+                        <div *ngIf="pincode.errors.required" style="text-align: left;"> pincode no is required</div>
+                      </div> -->
+                    </div>
+                </div>
+
+                <div class="form-group form-row">
+                    <label for="city" class="col-sm-2 col-form-label col-form-label-sm">City <font color ="red">*</font></label>
+                    <div class="col">
+                      <input id="city" name="city" placeholder="Enter city" type="text"
+                        class="form-control form-control-sm" required [(ngModel)]="form.data.city" #city="ngModel">
+                        <!-- [ngClass]="{ 'is-invalid': f.submitted && city.invalid }" required>
+                      <div *ngIf="f.submitted && city.invalid" class="invalid-feedback">
+                        <div *ngIf="city.errors.required" style="text-align: left;"> city is required</div>
+                      </div> -->
+                    </div>
+                </div>
+  
+                <div class="form-group form-row">
+                    <label for="state" class="col-sm-2 col-form-label col-form-label-sm">State <font color ="red">*</font></label>
+                    <div class="col">
+                      <input id="state" name="state" placeholder="Enter state" type="text"
+                        class="form-control form-control-sm" required [(ngModel)]="form.data.state" #state="ngModel">
+                        <!-- [ngClass]="{ 'is-invalid': f.submitted && state.invalid }" required>
+                      <div *ngIf="f.submitted && state.invalid" class="invalid-feedback">
+                        <div *ngIf="state.errors.required" style="text-align: left;"> state is required</div>
+                      </div> -->
+                    </div>
+                </div>
+  
+  
+              <div class="modal-footer">
+                <button class="btn btn-outline-primary btn-sm" >
+                  <i class="fa fa-save"></i>
+                  Save
+                </button>
+                <button class="btn btn-outline-secondary btn-sm" data-dismiss="modal"><i class="fa fa-window-close"></i>
+                  Close</button>
+              </div>
+            </form>
+  
+          </div>
+        </div>
+  
+  
+      </div>
+  
+  
+      <div class="col-sm-3">
+  
+  
+  
+      </div>
+    </div>
+  </div>
+ 
+  
+
+  <!-- billing start here -->
+  <div class="table-responsive pl-4 pr-4">
+    <hr>
+     <div *ngIf="sBox">
+       <!-- <div *ngFor="let b of bForm.list;let i = index" > -->
+         <!-- <div *ngFor=" let e of form.list;" > -->
+<h1>Billing</h1> <p> same as a Shipping Address <input type="checkbox" (change)="checkedBill($event)" (click)="checkAdd(b.sid)"> </p>
+<!-- </div> -->
+<!-- </div> -->
+<form class="form-inline my-2">
+  <!-- <label for="name" class="ml-sm-2">  Name:</label>
+
+  <input type="text" name="name" id="name" class="form-control form-control-sm ml-2" placeholder="name"
+    [(ngModel)]="form.searchParams.name"> -->
+
+  <!-- <label for="name" class="ml-sm-2"> Description:</label>
+        
+          <input type="text" name="description" id="description" class="form-control form-control-sm ml-2" placeholder="description"
+            [(ngModel)]="form.searchParams.description"> -->
+
+  <!-- <label for="body" class="ml-sm-2">Price:</label>
+        <input type="text" id="price" name="price" class="form-control form-control-sm ml-sm-2 " placeholder="price"
+          [(ngModel)]="form.searchParams.price"> -->
+  <!-- <button (click)="search()" class="btn btn-outline-primary btn-sm ml-2"><i class="fa fa-search-plus"></i>
+  
+    Search</button> -->
+  </form>
+  <div *ngIf="!bBox">
+    <button (click)="get(0)" class="btn btn-outline-primary btn-sm ml-2" data-toggle="modal" data-target="#editModal2"><i
+      class="fa fa-plus"></i>
+    Add</button> &nbsp;
+
+
+<form>
+  <div class="card-columns">
+    <div class="card bg-light" *ngFor="let b of bForm.list;">
+      <!-- data-toggle="modal" data-target="#myModal" -->
+      <a class="text-dark" style="cursor: pointer; text-decoration: none;"   >
+  
+      <div class="card-body text-center btn-outline-secondary">
+      
+        <ol class="text-left" style="list-style-type:none">
+          <li><b>FirstName:- </b>{{b.name}}</li>
+          <li><b>LastName:- </b>{{b.lastname}}</li>
+          <li><b>MobileNo:- </b>{{b.mobileno}}</li>
+          <li><b>Address:- </b>{{b.address}}</li>
+          <li><b>PinCode:- </b>{{b.pincode}}</li>
+          <li><b>City:- </b>{{b.city}}</li>
+          <li><b>State:- </b> {{b.state}} </li>
+        
+         
+        </ol> 
+      
+        
+  <button  title="Edit" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#editModal2"
+                  (click)="bGet(b.id)">
+                  <i class="fa fa-edit"></i>
+                </button> &nbsp;
+                <button title="Delete" class="btn btn-outline-danger btn-sm" (click)="bDelete(b.id)">
+                  <i class="fa fa-trash"></i>
+                </button>
+                &nbsp;
+               
+                  
+                <input type="radio" name="button" [value]="checked" (change)="active()" (click)="getB(b.id)">
+  
+                
+              </div>
+                 </a>
+    </div>
+  </div>
+  
+  </form>
+ 
+<div *ngIf="isCheck" style="text-align: right;">
+  <button  routerLink="/payment" class="btn btn-outline-success btn-sm ml-5" >
+    Proceed to Payment
+  </button>
+</div>
+</div>
+</div>
+<div *ngIf="bBox" style="text-align: right;">
+  <button  (click)="saveBill()" class="btn btn-outline-success btn-sm ml-5" routerLink="/review-order" >
+    Proceed to Payment
+  </button>
+</div>
+
+</div>
+
+<div class="modal" id="editModal2" role="dialog">
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="model-dialog col-sm-6 mt-4  " role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Billing Address</h5>
+          <!-- <div *ngIf="bForm.data.id==0|| bForm.data.id==null">          <button   class="btn btn-outline-primary btn-sm"  (click)="setB()">
+            <i class="fa fa-save"></i>
+            Default as Shipping Address
+          </button>
+        </div> -->
+       
+            
+          <button type="reset" (click)="bResetForm()" class="btn btn-outline-secondary btn-sm" data-dismiss="modal" aria-label="Close">
+            <i class="fa fa-window-close"></i>
+          </button>
+         
+          </div>
+        <div class="modal-body">
+          <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && bSave()" novalidate>
+            
+            <p>
+              <form-error [form]="form"></form-error>
+            </p>
+           
+            <div class="form-group form-row">
+              <label for="name" id="txtfname_billing" class="col-sm-2 col-form-label col-form-label-sm">First Name <font color ="red">*</font></label>
+              <div class="col">
+                <input id="name" name="name" placeholder="Enter Name" type="text" class="form-control form-control-sm"
+                  [(ngModel)]="bForm.data.name" >
+                  <!-- #name="ngModel" [ngClass]="{ 'is-invalid': f.submitted && name.invalid }"
+                  required -->
+                <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
+                  <div *ngIf="name.errors.required" style="text-align: left;"> Name is required</div>
+                </div>
+              </div>
+
+
+              <label for="lastname" class="col-sm-2 col-form-label col-form-label-sm">Last Name <font color ="red">*</font></label>
+              <div class="col">
+                <input id="lastname" name="lastname" placeholder=" Enter last name" type="text"
+                  class="form-control form-control-sm" required [(ngModel)]="bForm.data.lastname" #lastname="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && lastname.invalid }" required>
+                <div *ngIf="f.submitted && lastname.invalid" class="invalid-feedback">
+                  <div *ngIf="lastname.errors.required" style="text-align: left;"> LastName is required</div>
+                </div>
+
+              </div>
+            </div>
+            <div class="form-group form-row">
+              <label for="mobileno" class="col-sm-2 col-form-label col-form-label-sm">Mobile No <font color ="red">*</font></label>
+              <div class="col">
+                <input id="mobileno" name="mobileno" placeholder="Enter Mobile No" type="text"
+                  class="form-control form-control-sm" required [(ngModel)]="bForm.data.mobileno" #mobileno="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && mobileno.invalid }" required>
+                <div *ngIf="f.submitted && mobileno.invalid" class="invalid-feedback">
+                  <div *ngIf="mobileno.errors.required" style="text-align: left;"> Mobile no is required</div>
+                </div>
+              </div>
+          </div>
+              <div class="form-group form-row">
+                  <label for="address" class="col-sm-2 col-form-label col-form-label-sm">Address <font color ="red">*</font></label>
+                  <div class="col">
+                    <input id="address" name="address" placeholder="Enter Address" type="text"
+                      class="form-control form-control-sm" required [(ngModel)]="bForm.data.address" #address="ngModel"
+                      [ngClass]="{ 'is-invalid': f.submitted && address.invalid }" required>
+                    <div *ngIf="f.submitted && address.invalid" class="invalid-feedback">
+                      <div *ngIf="address.errors.required" style="text-align: left;"> address is required</div>
+                    </div>
+                  </div>
+              </div>
+          
+              <div class="form-group form-row">
+                  <label for="pincode" class="col-sm-2 col-form-label col-form-label-sm">PIN Code <font color ="red">*</font></label>
+                  <div class="col">
+                    <input id="pincode" name="pincode" placeholder="Enter Pin code" type="text"
+                      class="form-control form-control-sm" required [(ngModel)]="bForm.data.pincode" #pincode="ngModel"
+                      [ngClass]="{ 'is-invalid': f.submitted && pincode.invalid }" required>
+                    <div *ngIf="f.submitted && pincode.invalid" class="invalid-feedback">
+                      <div *ngIf="pincode.errors.required" style="text-align: left;"> pincode no is required</div>
+                    </div>
+                  </div>
+              </div>
+
+              <div class="form-group form-row">
+                  <label for="city" class="col-sm-2 col-form-label col-form-label-sm">City <font color ="red">*</font></label>
+                  <div class="col">
+                    <input id="city" name="city" placeholder="Enter city" type="text"
+                      class="form-control form-control-sm" required [(ngModel)]="bForm.data.city" #city="ngModel"
+                      [ngClass]="{ 'is-invalid': f.submitted && city.invalid }" required>
+                    <div *ngIf="f.submitted && city.invalid" class="invalid-feedback">
+                      <div *ngIf="city.errors.required" style="text-align: left;"> city is required</div>
+                    </div>
+                  </div>
+              </div>
+
+              <div class="form-group form-row">
+                  <label for="state" class="col-sm-2 col-form-label col-form-label-sm">State <font color ="red">*</font></label>
+                  <div class="col">
+                    <input id="state" name="state" placeholder="Enter state" type="text"
+                      class="form-control form-control-sm" required [(ngModel)]="bForm.data.state" #state="ngModel"
+                      [ngClass]="{ 'is-invalid': f.submitted && state.invalid }" required>
+                    <div *ngIf="f.submitted && state.invalid" class="invalid-feedback">
+                      <div *ngIf="state.errors.required" style="text-align: left;"> state is required</div>
+                    </div>
+                  </div>
+              </div>
+
+              <div class="form-group form-row">
+                <label for="sid" class="col-sm-2 col-form-label col-form-label-sm">Shipping_Id <font color ="red">*</font></label>
+                <div class="col">
+                  <input id="sid" name="sid"    type="text"
+                    class="form-control form-control-sm" required [(ngModel)]="bForm.data.sid" #sid="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && sid.invalid }" required>
+                  <div *ngIf="f.submitted && sid.invalid" class="invalid-feedback">
+                    <div *ngIf="sid.errors.required" style="text-align: left;"> sid is required</div>
+                  </div>
+                </div>
+            </div>
+
+
+            <div class="modal-footer">
+              <button class="btn btn-outline-primary btn-sm">
+                <i class="fa fa-save"></i>
+                Save
+              </button>
+              <button type="reset" class="btn btn-outline-secondary btn-sm" ><i class="fa fa-window-close"></i>
+                Reset</button>
+
+               
+              </div>
+          </form>
+
+        </div>
+      </div>
+
+
+    </div>
+
+
+    <div class="col-sm-3">
+
+</div>
+
+
+    </div>
+
+
+ 

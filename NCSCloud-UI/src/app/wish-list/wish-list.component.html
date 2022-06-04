@@ -1,0 +1,112 @@
+
+
+<div class="table-responsive pl-4 pr-4">
+
+    <h2 align ="left"> Wish-List List  </h2> 
+    
+    <!-- <div  *ngIf="form.error && form.message!= null" class="alert alert-danger alert-dismissible col text-center">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+       {{form.message}}
+    </div> -->
+<div>
+    <button routerLink="/shopping"  class="btn btn-outline-primary btn-sm ml-2 float-right">
+      <i class="fas fa-shopping-cart"></i>
+      Go To Cart</button> &nbsp;
+    </div>
+     
+    <br>
+
+    <div *ngIf="!form.error && form.message != null" class="alert alert-success alert-dismissible col text-center">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      {{form.message}}
+    </div>
+    
+        <form class="form-inline my-2">
+          <!-- <label for="name" class="ml-sm-2"> Product Name:</label>
+          <input type="text" name="productName" id="productName" class="form-control form-control-sm ml-2" placeholder="name"
+            [(ngModel)]="form.searchParams.productName"> -->
+          <!-- <label for="body" class="ml-sm-2">Price:</label>
+          <input type="text" id="price" name="price" class="form-control form-control-sm ml-sm-2 " placeholder="price"
+            [(ngModel)]="form.searchParams.price"> -->
+          <!-- <button (click)="search()" class="btn btn-outline-primary btn-sm ml-2"><i class="fa fa-search-plus"></i>
+            Search</button>
+          <button (click)="get(0)" class="btn btn-outline-primary btn-sm ml-2" data-toggle="modal" data-target="#editModal"><i
+              class="fa fa-plus"></i>
+            Add</button> &nbsp; -->
+        </form>
+        <div  *ngIf="form.list.length==0" class="alert alert-danger  text-center text-dark">
+              {{'Empty Wish-List Please Go to Shopping'}}
+              <a routerLink="/catalogue"> click here !!!!</a>
+        </div>
+         
+        <table *ngIf="!form.list.length==0" class="table table-sm table-striped my-1 ">
+          <thead>
+            <tr>
+              <th style="width: 44px;">S.No.</th>
+              <th style="width: 150px;">Name</th>
+              <th style="width: 150px;">Image</th>
+              <th style="width: 150px;">Price</th>
+              <th style="width: 150px;">Gst</th>
+              <th style="width: 150px;">Model No</th>
+              
+             <th style="width: 130px;">Quantity</th>
+    
+            
+      
+              <th align="right">Action</th>
+            <th></th> 
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let e of form.list; let i = index">
+              <td>{{pageIndex(i)}}</td>
+              <td>
+                <i *ngIf="e.status == 'Active'" class='fas fa-user-alt primary' style='font-size: 12px; color: green'>
+                </i>
+      
+                <i *ngIf="e.status != 'Active'" class='fa fa-product-hunt primary' style='font-size: 12px; color: grey'>
+                </i> {{e.productName}}
+              </td>
+      <td>
+                <img src="http://nenosystems.com:9097/NCSDOCS/api/doc/{{e.image_id}}" height="55px" width="80px">
+              
+              </td> 
+              <td >{{e.price}}</td>
+              <td>{{e.gst}}</td>
+              <td>{{e.model_no}}</td>
+              <td><input type="number"  class="form-control" (change)="saveQuantity(form.list[i].quantity,form.list[i].productName,form.list[i].image_id,form.list[i].price,form.list[i].gst,form.list[i].model_no,form.list[i].id)" style="width: 40%;" name="quantity" [(ngModel)]="form.list[i].quantity"></td>
+              
+              <!-- <td><input type="number"min="1" class="form-control" (change)="saveQuantity(form.list[i].quantity,form.list[i].productName,form.list[i].image_id,form.list[i].price,form.list[i].gst,form.list[i].model_no,form.list[i].id)" style="width: 20%;" name="quantity" [(ngModel)]="form.list[i].quantity"></td> -->
+    
+    
+            
+                <td   align="right">
+                <div class="row">
+                  <!-- <button title="Edit" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#editModal"
+                    (click)="get(e.id)">
+                    <i class="fa fa-edit"></i>
+                  </button> &nbsp; -->&nbsp; &nbsp;&nbsp;&nbsp;
+                  <button  title="Delete"  class="btn btn-outline-danger btn-sm" (click)="delete(e.id)">
+                    <i class="fa fa-trash text-center"></i>
+                  </button>
+                </div>
+              </td>
+
+              <td >
+                <button (click)="addtoCart(e.id,e.productName,e.image_id,e.quantity)">Add to Cart</button>
+                </td>
+            </tr>
+          </tbody>
+        </table> 
+        <!-- <div *ngIf="!form.list.length==0">
+        <div style="padding-left: 85%; font-weight: bolder;">SubTotal : {{totalPrice}} </div>
+        
+        <div style="padding-left: 85%;">Shipping Charges : {{shippingCharges}} </div>
+        <div style="padding-left: 85%; font-weight: bolder;">Grand Total : {{grandTotal}} </div>
+    
+      </div>  -->
+      </div>
+    
+    
+    
+     

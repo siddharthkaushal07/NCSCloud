@@ -1,0 +1,68 @@
+<div class="alert alert-success" role="alert" *ngIf="success">
+    <strong>Done!</strong> You successfully Added to Cart...
+  </div>
+<main>
+    <div class="section section-gray">
+        <div class="section-content">
+           
+            <div class="product-details">
+                <ul height="300" width="400">
+                   
+                    <!-- Don't show small pictures if there's only 1 -->
+                    <li>
+                        <a href="javascript:void(0)"><img height="300" width="400" src="http://nenosystems.com:9097/NCSDOCS/api/doc/{{form.data.image_id}}" alt=""></a>
+                    </li>
+                
+                </ul>
+                <ul class="product-info">
+                    <li class="product-name">{{form.data.name}}</li>
+                    <li class="product-price">MRP:<span>₹</span><span>{{priceform.data.mrp}}</span></li>
+                    <li class="product-price">Price:<span>₹</span><span>{{priceform.data.price}}</span></li>
+                    <li class="product-name">{{form.data.specification}}</li>
+                    <!-- <li class="product-attributes">
+                        <ul class="fields">
+                            <li>
+                                <div class="field-name">Color:</div>
+                                <label>
+                                    <input type="radio" name="color"> Gray
+                                </label>
+                                <label>
+                                    <input type="radio" name="color"> Black
+                                </label>
+                            </li>
+                            <li>
+                                <div class="field-name">Size:</div>
+                                <label>
+                                    <input type="radio" name="size"> Kids
+                                </label>
+                                <label>
+                                    <input type="radio" name="size"> Adults
+                                </label>
+                            </li>
+                        </ul>
+                    </li> -->
+                    <li class="product-addtocart">
+                        <button (click)="addCart(form.data.id,form.data.name,form.data.image_id)">Add To Cart</button>
+                    </li>
+                    <li class="product-description">
+                        {{form.data.description}}                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title"><h2>Check Out More Products</h2></div>
+        <div class="section-content">
+            <ul class="product-list">
+                <li>
+                    <a routerLink="/catalogue" class="product">
+                        <!-- <div class="product-image"><img src="http://static.zara.net/photos///2016/I/0/1/p/6756/201/800/2/w/1024/6756201800_2_6_1.jpg?ts=1472203990151" alt=""></div> -->
+                        <div class="product-name">Click Here</div>
+                        <!-- <div class="product-price"><span>€</span><span>20.00</span></div> -->
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</main>

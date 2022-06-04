@@ -1,0 +1,318 @@
+<h2 align="left"> Order List </h2>
+
+
+<!-- <form class="form-inline my-2">
+    <label for="orderId" class="ml-sm-2"> Order_Id:</label>
+  
+    <input type="text" name="order_id" id="order_id" class="form-control form-control-sm ml-2" placeholder="Search By Order_Id"
+      [(ngModel)]="form.searchParams.order_id">
+   -->
+<!-- <label for="name" class="ml-sm-2"> Description:</label>
+  
+    <input type="text" name="description" id="description" class="form-control form-control-sm ml-2"
+      placeholder="description" [(ngModel)]="form.searchParams.description">
+  
+      <label for="name" class="ml-sm-2"> Category : </label>
+      <select [(ngModel)]="form.searchParams.category_id" class="form-control form-control-sm ml-2" name="category_id"
+      id="unitName" >
+      <option></option>
+      <option style="font-weight: bold;" value="" disabled selected>-Category-</option>
+      <option *ngFor="let l of form.preload.categoryList" [value]="l.id">
+        {{l.name}}
+      </option>
+    </select>
+  
+    <label for="name" class="ml-sm-2"> SubCategory : </label>
+      <select [(ngModel)]="form.searchParams.subcategory_id" class="form-control form-control-sm ml-2" name="subcategory_id"
+      id="unitName" >
+      <option></option>
+      <option style="font-weight: bold;" value="" disabled selected>-SubCategory-</option>
+      <option *ngFor="let l of SubForm.list" [value]="l.id">
+        {{l.value}}
+      </option>
+    </select> -->
+
+<!-- <label for="body" class="ml-sm-2">Price:</label>
+      <input type="text" id="price" name="price" class="form-control form-control-sm ml-sm-2 " placeholder="price"
+        [(ngModel)]="form.searchParams.price"> -->
+<!-- <button (click)="search()" class="btn btn-outline-primary btn-sm ml-2"><i class="fa fa-search-plus"></i>
+      Search</button>
+    <button (click)="get(0)" class="btn btn-outline-primary btn-sm ml-2" data-toggle="modal" data-target="#editModal"><i
+        class="fa fa-plus"></i>
+      Add</button> &nbsp;
+  </form> -->
+
+<!-- table start -->
+<div class="table-responsive pl-4 pr-4">
+  <table class="table table-sm table-striped   ">
+    <thead>
+      <tr>
+      <tr style="background: skyblue">
+        <th>S.No.</th>
+        <th>Order_Id</th>
+        <th>Total_Amount</th>
+        <th>Quantity</th>
+        <th>Discount</th>
+        <th>Description</th>
+        <th>View</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr *ngFor="let e of form.list; let i = index">
+        <td>{{pageIndex(i)}}</td>
+        <td>
+          <i *ngIf="e.status == 'Active'" class='fas fa-user-alt primary' style='font-size: 12px; color: green'>
+          </i>
+
+          <i *ngIf="e.status != 'Active'" class='fa fa-product-hunt primary' style='font-size: 12px; color: grey'>
+          </i> {{e.order_id}}
+        </td>
+
+        <td>{{e.total_price}}</td>
+        <td>{{e.quantity}}</td>
+        <td>{{e.discount}}</td>
+        <td>{{e.description}}</td>
+
+        <td>
+
+          <!-- <div class="row"  > -->
+          <!-- <button title="view" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#editModal"
+              >
+              <i class="fa fa-eye"></i>
+            </button>
+            <input type="text"  name="order_id"  class="form-control form-control-sm ml-2"
+      placeholder="productName" [(ngModel)]="orderItemForm.searchParams.order_id" > -->
+          <button (click)="searchItem(e.order_id,e.shipping_Address_Id,e.billing_Address_Id)" title="view"
+            class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#editModal"><i
+              class="fa fa-eye"></i>
+          </button>
+        </td>
+      </tr>
+      <!-- <button title="Delete" class="btn btn-outline-danger btn-sm" (click)="delete(e.id)">
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <!-- table end -->
+      <!-- </div> -->
+
+
+      <!-- edit modal start -->
+
+      <div class="modal" id="editModal" role="dialog">
+        <div class="row">
+          <div class="col-sm-2"></div>
+          <div class="model-dialog col-sm-8 mt-4  " role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Invoice</h5>
+             <div style="margin-left: 80%;"><button class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+              print
+            </button></div>
+                <button class="btn btn-outline-secondary btn-sm" data-dismiss="modal" aria-label="Close">
+                  <i class="fa fa-window-close"></i>
+                </button>
+              </div>
+              <div class="modal-body">
+
+
+
+                <div class="container">
+
+                  <!-- <form class="form-inline my-2">
+    <label for="productName" class="ml-sm-2"> Product_Name:</label>
+
+    <input type="text" name="productName" id="productName" class="form-control form-control-sm ml-2"
+      placeholder="productName" [(ngModel)]="form.searchParams.productName">
+
+    <label for="orderId" class="ml-sm-2"> Search by OrderNo : </label>
+    <select [(ngModel)]="orderItemForm.searchParams.order_id" class="form-control form-control-sm ml-2" name="orderId">
+
+      <option style="font-weight: bold;" [value]=default [disabled]="true" disabled selected>-OrdeNo-</option>
+      <option *ngFor="let l of form.preload.orderNo" [value]="l.order_id">
+        {{l.order_id}}
+      </option>
+    </select>
+    <button (click)="searchItem()" class="btn btn-outline-primary btn-sm ml-2"><i class="fa fa-search-plus"></i>
+      Search</button>
+    <button type="reset" class="btn btn-outline-danger btn-sm ml-2"><i class="fas fa-circle-notch"></i>
+      Reset</button>
+
+  </form> -->
+
+                  <!-- <div *ngFor="let i of orderFormList"> -->
+
+
+                  <div *ngFor="let earr of orderFormList;let i = index">
+                    <div>
+                      <!-- data-toggle="modal" data-target="#myModal" -->
+                      <!-- <a class="text-dark" style="cursor: pointer; text-decoration: none;"> -->
+                      &nbsp; &nbsp;
+                      <div>
+                        <!-- <button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse"
+          aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Order_Number:-
+          {{earr.order_id}}</button> -->
+                        <h4 class="text"> <b>Order No:- {{earr.order_id}}</b> </h4>
+
+                        <div class="row">
+                          <div class="col-sm">
+                            <h6>Ship To</h6>
+                            Name:- {{shippingForm.data.name }} {{shippingForm.data.lastname}}
+                            <br>
+                            Address:- {{shippingForm.data.address}}
+                            <br>
+                            City:- {{shippingForm.data.city}}
+                            <br>
+                            MobileNo:- {{shippingForm.data.mobileno}}
+                            <br>
+                            PinCode:- {{shippingForm.data.pincode}}
+                            <br>
+                            State:- {{shippingForm.data.state}}
+
+                          </div>
+                          <div class="col-sm">
+                            <h6>Bill To</h6>
+                            Name:- {{form.data.name }} {{form.data.lastname}}
+                            <br>
+                            Address:- {{form.data.address}}
+                            <br>
+                            City:- {{form.data.city}}
+                            <br>
+                            MobileNo:- {{form.data.mobileno}}
+                            <br>
+                            PinCode:- {{form.data.pincode}}
+                            <br>
+                            State:- {{form.data.state}}
+                          </div>
+                        </div>
+                        <br>
+                        <div class="text-right">
+                          <!-- <button class="btn btn-warning" type="button" data-toggle="collapse"
+                            data-target=".multi-collapse" aria-expanded="false"
+                            aria-controls="multiCollapseExample1 multiCollapseExample2">Total Price:-
+                            {{earr.total_price}}</button> -->
+                        </div>
+                        <b>Order Date:- </b> {{earr.order_date | date: 'dd-MM-yyyy' }}
+                        <br>
+                        <b>Delivery Date:- </b>{{earr.delivery_date}}
+                      </div>
+                      <br>
+                      <div class="table-responsive pl-4 pr-4"></div>
+                      <table class="table table-sm table-striped">
+                        <tr>
+
+                          <th>S.No</th>
+                          <th>
+                            Product Name
+                          </th>
+                          <th>
+                            Model No.
+                          </th>
+                          <th>Quantity</th>
+                          <th>Payment Mode</th>
+                          
+                          <th>Price</th>
+                          <th>GST</th>
+                          <th>Total</th>
+
+                        </tr>
+                        <tr *ngFor="let e of orderList[i]; let i = index">
+
+                          <td>{{(i+1)}}</td>
+                          <td>
+                            {{e.productName}}
+                          </td>
+                          <td>{{e.modelNo}}</td>
+                          <td> {{e.quantity}} </td>
+                          <td>
+                            {{e.payment_mode}}
+                          </td>
+                         
+                          
+                          <td> {{e.price - e.price / 100 * e.gst}} </td>
+                          <td>{{e.price / 100 * e.gst}}</td>
+                          <td>{{e.price}}</td>
+                        </tr>
+                      </table>
+                      <br>
+                      <hr>
+
+
+
+                      <div class="text-right">
+                        <p>Discount 10%</p>
+                        <h5>Grand Total :- {{earr.total_price}}</h5>
+                      </div>
+
+                      <!-- <div class="row  bg-light " *ngFor="let e of orderList[i];">
+
+
+
+
+                        <div class="col-xs-1"></div>
+                        <div class="col-md-2">
+
+                          <img src="http://nenosystems.com:9097/NCSDOCS/api/doc/{{e.image_id}}" height="100px"
+                            width="100px">
+                        </div>
+                        <div class="col-md-5">
+                          <ol style="list-style-type:none;">
+                            <li><b>Product Name:- </b>{{e.productName}}</li>
+                            <li><b>Model No:- </b>{{e.modelNo}}</li>
+
+                            <li><b>Quantity:- </b>{{e.quantity}}</li>
+                            <li><b>Price:- </b>{{e.price*e.quantity}}</li>
+                            <li><b>Payment Mode:- </b>{{e.payment_mode}}</li>
+
+
+                          </ol>
+                        </div> -->
+
+                      <!-- /////////////////////////////////////////////////////////////////////// -->
+                      <!-- <div>Order_Date:- {{e.order_date|dateFormater}} &nbsp;
+          <br>
+          Delivery_Date:- {{e.delivery_date}}
+        </div> -->
+
+                      <!-- <button title="Edit" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#editModal"
+            (click)="get(e.id)">
+            <i class="fa fa-edit"></i>
+          </button> &nbsp;
+          <button title="Delete" class="btn btn-outline-danger btn-sm" (click)="delete(e.id)">
+            <i class="fa fa-trash"></i>
+          </button>
+          &nbsp;
+
+
+          <input type="checkbox" name="button" [value]="checked" (change)="checkedShipp($event)"
+            (click)="getShipping(e.id)"> -->
+
+
+
+                      <!-- </div> -->
+                      <!-- </div> -->
+                    </div>
+                  </div>
+
+                </div>
+
+
+
+
+
+
+              </div>
+            </div>
+            <div class="col-sm-3">
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>

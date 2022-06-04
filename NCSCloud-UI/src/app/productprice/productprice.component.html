@@ -1,0 +1,246 @@
+<div class="table-responsive pl-4 pr-4">
+
+  <p>
+    <form-error [form]="form"></form-error>
+  </p>
+  <h2 align="left"> ProductPrice List </h2>
+  
+  <form class="form-inline my-2">
+    <label for="name" class="ml-sm-2"> Name :</label>
+
+    <input type="text" name="name" id="name" class="form-control form-control-sm ml-2" placeholder="name"
+      [(ngModel)]="form.searchParams.name">
+
+      <label for="name" class="ml-sm-2"> Model Number :</label>
+      <input type="text" name="model_no" id="name" class="form-control form-control-sm ml-2" placeholder="Model Number"
+      [(ngModel)]="form.searchParams.model_no">
+
+      <label for="name" class="ml-sm-2"> Filter :</label>
+      <!-- <div class="col"> -->
+         <select required class="form-control form-control-sm ml-2" [(ngModel)]="filterForm.filter" name="filter" (change)="filterByPrice()"
+         id="gender">
+         <option style="font-weight: bold;" value="" disabled selected>-Filter-</option>
+         <option>10000-20000</option>
+         <option>20000-30000</option>
+         <option>30000-40000</option>
+         <option>40000-70000</option>
+
+         </select>
+      <!-- </div> -->
+
+    <!-- <label for="name" class="ml-sm-2"> Description:</label>
+  
+      <input type="text" name="description" id="description" class="form-control form-control-sm ml-2"
+        placeholder="description" [(ngModel)]="form.searchParams.description"> -->
+
+    <!-- <label for="body" class="ml-sm-2">Price:</label>
+        <input type="text" id="price" name="price" class="form-control form-control-sm ml-sm-2 " placeholder="price"
+          [(ngModel)]="form.searchParams.price"> -->
+    <button (click)="search()" class="btn btn-outline-primary btn-sm ml-2"><i class="fa fa-search-plus"></i>
+      Search</button>
+    <button (click)="get(0)" class="btn btn-outline-primary btn-sm ml-2" data-toggle="modal" data-target="#editModal"><i
+        class="fa fa-plus"></i>
+      Add</button> &nbsp;
+  </form>
+  <table class="table table-sm table-striped my-1 ">
+    <thead>
+      <tr>
+        <th>S.No.</th>
+        <th>Name</th>
+        <th>Model Number</th>
+        <th>MRP</th>
+        <th>Discount</th>
+        <th>Price</th>
+        <th>Gst</th>
+        <th>Start date</th>
+        <th>End date</th>
+      
+
+
+        <th align="right">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let e of form.list; let i = index">
+        <td>{{pageIndex(i)}}</td>
+        <td>
+          <i *ngIf="e.status == 'Active'" class='fas fa-user-alt primary' style='font-size: 12px; color: green'>
+          </i>
+
+          <i *ngIf="e.status != 'Active'" class='fa fa-product-hunt primary' style='font-size: 12px; color: grey'>
+          </i> {{e.name}}
+        </td>
+
+        <td>{{e.model_no}}</td>
+        <td>{{e.mrp}}.00</td>
+        <td>{{e.discount}}%</td>
+        <td>{{e.price}}</td>
+        <td>{{e.gst}}%</td>
+        <td>{{e.start_date | date}}</td>
+        <td>{{e.end_date | date}}</td>
+       
+
+
+        <td align="right">
+          <div class="row">
+            <button title="Edit" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#editModal"
+              (click)="get(e.id)">
+              <i class="fa fa-edit"></i>
+            </button> &nbsp;
+            <button title="Delete" class="btn btn-outline-danger btn-sm" (click)="delete(e.id)">
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- <img src="{{end + session}}"> -->
+</div>
+
+<div class="modal" id="editModal" role="dialog">
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="model-dialog col-sm-6 mt-4  " role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Product Price</h5>
+          <button class="btn btn-outline-secondary btn-sm" data-dismiss="modal" aria-label="Close">
+            <i class="fa fa-window-close"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
+            <p>
+              <form-error [form]="form"></form-error>
+            </p>
+            <div class="form-group form-row">
+              <label for="product_id" class="col-sm-2 col-form-label col-form-label-sm">Product name<font color="red">
+                * </font></label>
+            <div class="col">
+              <select class="form-control" id="product_id" required name="product_id" [(ngModel)]="form.data.product_id" #product_id="ngModel" [ngClass]="{ 'is-invalid': f.submitted && product_id.invalid }"
+              required>
+                <option *ngFor="let obj of form.preload.productList" [value]="obj.id">{{obj.name}}</option>
+              </select>
+              <div *ngIf="f.submitted && product_id.invalid" class="invalid-feedback">
+                <div *ngIf="product_id.errors.required" style="text-align: left;"> Product is required</div>
+              </div>
+            </div>
+
+            <label for="model_id" class="col-sm-2 col-form-label col-form-label-sm">Model number<font color="red">
+              * </font></label>
+          <div class="col">
+            <select class="form-control" id="model_id" required name="model_id" [(ngModel)]="form.data.model_id" #model_id="ngModel" [ngClass]="{ 'is-invalid': f.submitted && model_id.invalid }"
+            required>
+              <option *ngFor="let obj of form.preload.productmodelList" [value]="obj.id">{{obj.model_no}}</option>
+            </select>
+            <div *ngIf="f.submitted && model_id.invalid" class="invalid-feedback">
+              <div *ngIf="model_id.errors.required" style="text-align: left;"> model no is required</div>
+            </div>
+          </div>
+
+          </div>
+
+            <div class="form-group form-row">
+              <label for="mrp" class="col-sm-2 col-form-label col-form-label-sm">MRP</label>
+              <div class="col">
+                <input id="mrp" name="mrp" placeholder="price" type="text" class="form-control form-control-sm" required
+                  [(ngModel)]="form.data.mrp" #mrp="ngModel" [ngClass]="{ 'is-invalid': f.submitted && mrp.invalid }"
+                  required>
+                  <div *ngIf="f.submitted && mrp.invalid" class="invalid-feedback">
+                    <div *ngIf="mrp.errors.required" style="text-align: left;"> mrp is required</div>
+                  </div>
+                
+              </div>
+
+              <label for="discount" class="col-sm-2 col-form-label col-form-label-sm">Discount</label>
+              <div class="col">
+                <input id="discount" name="discount" placeholder="discount" type="text"
+                  class="form-control form-control-sm" required [(ngModel)]="form.data.discount"  #discount="ngModel" [ngClass]="{ 'is-invalid': f.submitted && discount.invalid }"
+                  required>
+                  <div *ngIf="f.submitted && discount.invalid" class="invalid-feedback">
+                    <div *ngIf="discount.errors.required" style="text-align: left;"> discount is required</div>
+                  </div>
+                
+              </div>
+            </div>
+            <div class="form-group form-row">
+              <label for="price" class="col-sm-2 col-form-label col-form-label-sm">Price</label>
+              <div class="col">
+                <input id="price" name="price" placeholder="price" type="text" class="form-control form-control-sm"
+                  required [(ngModel)]="form.data.price" #price="ngModel" [ngClass]="{ 'is-invalid': f.submitted && price.invalid }"
+                  required>
+                  <div *ngIf="f.submitted && price.invalid" class="invalid-feedback">
+                    <div *ngIf="price.errors.required" style="text-align: left;"> price is required</div>
+                  </div>
+              </div>
+               
+            
+
+              <label for="gst" class="col-sm-2 col-form-label col-form-label-sm">GST</label>
+              <div class="col">
+                <input id="gst" name="gst" placeholder="gst" type="text" class="form-control form-control-sm" required
+                  [(ngModel)]="form.data.gst" #gst="ngModel" [ngClass]="{ 'is-invalid': f.submitted && gst.invalid }"
+                  required>
+                  <div *ngIf="f.submitted && gst.invalid" class="invalid-feedback">
+                    <div *ngIf="gst.errors.required" style="text-align: left;"> gst is required</div>
+                  </div>
+              </div>
+            </div>
+
+
+            <div class="form-group form-row">
+              <label for="start_date" class="col-sm-2 col-form-label col-form-label-sm">start date</label>
+              <div class="col">
+                <input id="start_date" name="start_date" placeholder="start_date" type="date" class="form-control form-control-sm"
+                  required [(ngModel)]="form.data.start_date" #start_date="ngModel" [ngClass]="{ 'is-invalid': f.submitted && start_date.invalid }"
+                  required>
+                  <div *ngIf="f.submitted && start_date.invalid" class="invalid-feedback">
+                    <div *ngIf="start_date.errors.required" style="text-align: left;"> start date is required</div>
+                  </div>
+              </div>
+               
+            
+
+              <label for="end_date" class="col-sm-2 col-form-label col-form-label-sm">end date</label>
+              <div class="col">
+                <input id="end_date" name="end_date" placeholder="end_date" type="date" class="form-control form-control-sm" required
+                  [(ngModel)]="form.data.end_date" #end_date="ngModel" [ngClass]="{ 'is-invalid': f.submitted && end_date.invalid }"
+                  required>
+                  <div *ngIf="f.submitted && end_date.invalid" class="invalid-feedback">
+                    <div *ngIf="end_date.errors.required" style="text-align: left;"> end date is required</div>
+                  </div>
+              </div>
+            </div>
+
+            <div class="form-group form-row">
+              <label for="start_date" class="col-sm-2 col-form-label col-form-label-sm">start date</label>
+              <div class="col">
+                <select class="form-control" 
+                    style="cursor: pointer;">
+                    <option selected="true">Please select </option>
+                    <option value="Male">Flat </option>
+                    <option value="Female">discount</option>
+                  </select>
+              </div>
+              <label for="end_date" class="col-sm-2 col-form-label col-form-label-sm"></label>
+              <div class="col"></div>
+              </div>
+            <div class="modal-footer">
+              <button class="btn btn-outline-primary btn-sm">
+                <i class="fa fa-save"></i>
+                Save
+              </button>
+              <button class="btn btn-outline-secondary btn-sm" data-dismiss="modal"><i class="fa fa-window-close"></i>
+                Close</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-sm-3">
+
+
+
+      </div>
+    </div>
+  </div>

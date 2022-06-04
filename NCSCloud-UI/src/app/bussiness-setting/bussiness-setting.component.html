@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            
+        <div class="text-center" style="margin-top: 30%;">
+            <h1>Add GST</h1>
+            
+            <br>
+            <div class="card">
+                <div class="card-body">
+                    <form name="form" #f="ngForm" (ngSubmit)="save()">
+                    <label>GSTIN :</label>&nbsp; &nbsp;
+                    <input type="text" placeholder="22AAAAA0000A1Z5" [(ngModel)]="form.data.gstNo" name="gstNo"><br>
+                    <br>    
+                    <button type="submit" class="btn btn-primary btn-lg" >Add GSTIN</button>
+                </form>  
+                </div>  
+                </div>
+        </div>
+            </div>
+        </div>   
+</body>
+</html>

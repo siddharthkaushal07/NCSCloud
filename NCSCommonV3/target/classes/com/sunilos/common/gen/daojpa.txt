@@ -1,0 +1,26 @@
+package com.nenosystems.b2b.dao;
+
+import org.springframework.stereotype.Repository;
+import com.nenosystems.common.*;
+import com.nenosystems.b2b.dto.ProductDTO;
+
+/**
+ * Product DAO interface. Add Product custom methods
+ * 
+ * @author SunilOS
+ * @version 1.0
+ * @Copyright (c) SunilOS
+ */
+
+@Repository
+public interface ProductJpaRespositoryInt extends BaseJpaRespositoryInt<ProductDTO> {
+
+	/**
+	 * finds Product by name
+	 * 
+	 * @param name
+	 * @returns
+	 */
+	public ProductDTO findByName(String name);
+
+}

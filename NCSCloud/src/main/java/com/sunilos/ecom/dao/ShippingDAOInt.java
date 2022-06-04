@@ -1,0 +1,15 @@
+package com.sunilos.ecom.dao;
+import com.sunilos.common.BaseDAOInt;
+import com.sunilos.ecom.dto.ShippingDTO;
+
+
+/**
+ * Shipping DAO interface.
+ * 
+ * @author SunilOS
+ * @version 1.0
+ * @Copyright (c) SunilOS
+ */
+public interface ShippingDAOInt extends BaseDAOInt<ShippingDTO> {
+
+}

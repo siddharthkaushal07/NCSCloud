@@ -1,0 +1,398 @@
+<div class="table-responsive pl-4 pr-4">
+  
+
+  <h2 align="left"> Enquiry List </h2>
+
+  <form class="form-inline my-2">
+    <label for="name" class="ml-sm-2"> Enquiry Name:</label>
+
+    <input type="text" name="name" id="name" class="form-control form-control-sm ml-2" placeholder="name"
+      [(ngModel)]="form.searchParams.name">
+
+    <!-- <label for="name" class="ml-sm-2"> Description:</label>
+          
+            <input type="text" name="description" id="description" class="form-control form-control-sm ml-2" placeholder="description"
+              [(ngModel)]="form.searchParams.description"> -->
+
+    <!-- <label for="body" class="ml-sm-2">Price:</label>
+          <input type="text" id="price" name="price" class="form-control form-control-sm ml-sm-2 " placeholder="price"
+            [(ngModel)]="form.searchParams.price"> -->
+    <button (click)="search()" class="btn btn-outline-primary btn-sm ml-2"><i class="fa fa-search-plus"></i>
+      Search</button>
+    <button (click)="get(0)" class="btn btn-outline-primary btn-sm ml-2" data-toggle="modal" data-target="#editModal"><i
+        class="fa fa-plus"></i>
+      Add</button> &nbsp;
+  </form>
+
+  
+  <table class="table table-sm table-striped my-1 ">
+    <thead>
+      <tr>
+        <th style="width: 44px;">S.No.</th>
+        <th style="width: 100px;">First Name</th>
+        <th style="width: 100px;">Last Name</th>
+        <th style="width: 100px;">Enquiry Date</th>
+        <th style="width: 100px;">Enquiry Mode</th>
+        <th style="width: 100px;">Training</th>
+        <th style="width: 100px;">MobileNo</th>
+        <th style="width: 100px;">EmailId</th>
+        <th style="width: 100px;">Alternate MobileNo</th>
+        <th style="width: 100px;">Status</th>
+        <th style="width: 100px;">Refered By</th>
+        <th style="width: 130px;">Next Followup Date</th>
+        <th style="width: 100px;">Gender</th>
+        <th style="width: 100px;">DOB</th>
+        <th style="width: 100px;">Address</th>
+        <th style="width: 100px;">Attend By</th>
+        <th style="width: 130px;">Remark</th>
+
+        <th align="right">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let e of form.list; let i = index">
+        <td>{{pageIndex(i)}}</td>
+        <td>
+          <i *ngIf="e.status == 'Active'" class='fas fa-user-alt primary' style='font-size: 12px; color: green'>
+          </i>
+
+          <i *ngIf="e.status != 'Active'" class='fa fa-product-hunt primary' style='font-size: 12px; color: grey'>
+          </i> {{e.name}}
+        </td>
+
+        <td>{{e.lastname}}</td>
+        <td>{{e.enqdate |date}}</td>
+        <td>{{e.enqmode}}</td>
+        <td>{{e.training}}</td>
+        <td>{{e.mobile}}</td>
+        <td>{{e.emailid}}</td>
+        <td>{{e.alternatemob}}</td>
+        <td>{{e.status}}</td>
+        <td>{{e.refby}}</td>
+        <td>{{e.nfudate | date}}</td>
+        <td>{{e.gender}}</td>
+        <td>{{e.dob | date}}</td>
+        <td>{{e.address}}</td>
+        <td>{{e.attendby}}</td>
+        <td>{{e.remark}}</td>
+
+
+        <td align="right">
+          <div class="row">
+            <button title="Edit" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#editModal"
+              (click)="get(e.id)">
+              <i class="fa fa-edit"></i>
+            </button> &nbsp;
+            <button title="Delete" class="btn btn-outline-danger btn-sm" (click)="delete(e.id)">
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- <img src="{{end + session}}"> -->
+</div>
+
+<div class="modal" id="editModal" role="dialog">
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="model-dialog col-sm-6 mt-4  " role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Enquiry</h5>
+          <button class="btn btn-outline-secondary btn-sm" data-dismiss="modal" aria-label="Close">
+            <i class="fa fa-window-close"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
+            <p>
+              <form-error [form]="form"></form-error>
+            </p>
+            <div class="form-group form-row">
+              <label for="enqdate" class="col-sm-2 col-form-label col-form-label-sm">Enquiry Date <font color ="red">*</font> </label>
+              <div class="col">
+                <input id="enqdate" name="enqdate" placeholder="" type="date" class="form-control form-control-sm"
+                  required [(ngModel)]="form.data.enqdate" #enqdate="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && enqdate.invalid }" required>
+                <div *ngIf="f.submitted && enqdate.invalid" class="invalid-feedback">
+                  <div *ngIf="enqdate.errors.required" style="text-align: left;"> Enquiry date is required</div>
+                </div>
+              </div>
+              <label for="Enquiry Mode" class="col-sm-2 col-form-label col-form-label-sm">Enquiry Mode <font color ="red">*</font></label>
+              <div class="col">
+
+
+                <select class="form-control" name="enqmode" placeholder="Enter Enquiry" id="enqmode"
+                  [(ngModel)]="form.data.enqmode " #enqmode="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && gender.invalid }" required>
+
+                  style="cursor: pointer;">
+
+                  <option value="">Please select</option>
+                  <option value="OnCall">OnCall</option>
+                  <option value="ByWalkIn">ByWalkIn</option>
+
+                </select>
+
+                <div *ngIf="f.submitted && enqmode.invalid" class="invalid-feedback">
+                  <div *ngIf="enqmode.errors.required" style="text-align: left;"> EnquiryMode is required</div>
+
+
+                </div>
+                <!-- <span class="alertRedColor"> {{form.inputerror.enqmode}} </span> -->
+              </div>
+            </div>
+            <div class="form-group form-row">
+              <label for="name" class="col-sm-2 col-form-label col-form-label-sm">First Name <font color ="red">*</font></label>
+              <div class="col">
+                <input id="name" name="name" placeholder="Enter Name" type="text" class="form-control form-control-sm"
+                  [(ngModel)]="form.data.name" #name="ngModel" [ngClass]="{ 'is-invalid': f.submitted && name.invalid }"
+                  required>
+                <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
+                  <div *ngIf="name.errors.required" style="text-align: left;"> Name is required</div>
+                </div>
+              </div>
+
+
+              <label for="lastname" class="col-sm-2 col-form-label col-form-label-sm">Last Name <font color ="red">*</font></label>
+              <div class="col">
+                <input id="lastname" name="lastname" placeholder=" Enter last name" type="text"
+                  class="form-control form-control-sm" required [(ngModel)]="form.data.lastname" #lastname="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && lastname.invalid }" required>
+                <div *ngIf="f.submitted && lastname.invalid" class="invalid-feedback">
+                  <div *ngIf="lastname.errors.required" style="text-align: left;"> LastName is required</div>
+                </div>
+
+              </div>
+            </div>
+            <div class="form-group form-row">
+              <label for="mobile" class="col-sm-2 col-form-label col-form-label-sm">Mobile No <font color ="red">*</font></label>
+              <div class="col">
+                <input id="mobile" name="mobile" placeholder="Enter Mobile No" type="text"
+                  class="form-control form-control-sm" required [(ngModel)]="form.data.mobile" #mobile="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && mobile.invalid }" required>
+                <div *ngIf="f.submitted && mobile.invalid" class="invalid-feedback">
+                  <div *ngIf="mobile.errors.required" style="text-align: left;"> Mobile no is required</div>
+                </div>
+              </div>
+
+              <label for="alternatemob" class="col-sm-2 col-form-label col-form-label-sm">Altarnate Mobile No <font color ="red">*</font></label>
+              <div class="col">
+                <input id="alternatemob" name="alternatemob" placeholder="Enter Alternate Mobile no" type="text"
+                  class="form-control form-control-sm" required [(ngModel)]="form.data.alternatemob"
+                  #alternatemob="ngModel" [ngClass]="{ 'is-invalid': f.submitted && alternatemob.invalid }" required>
+                <div *ngIf="f.submitted && alternatemob.invalid" class="invalid-feedback">
+                  <div *ngIf="alternatemob.errors.required" style="text-align: left;"> Altarnate Mobile No is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group form-row">
+              <label for="emailid" class="col-sm-2 col-form-label col-form-label-sm">Email Id <font color ="red">*</font></label>
+              <div class="col">
+                <input id="emailid" name="emailid" placeholder="Enter Email Id" type="text"
+                  class="form-control form-control-sm" required [(ngModel)]="form.data.emailid" #emailid="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && emailid.invalid }" required>
+                <div *ngIf="f.submitted && emailid.invalid" class="invalid-feedback">
+                  <div *ngIf="emailid.errors.required" style="text-align: left;"> emailid is required</div>
+                </div>
+              </div>
+
+              <label for="Status" class="col-sm-2 col-form-label col-form-label-sm">Status <font color ="red">*</font></label>
+              <div class="col">
+
+
+                <select class="form-control" name="status" placeholder="Enter Status" id="status"
+                  [(ngModel)]="form.data.status" #status="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && gender.invalid }" required>
+
+                  style="cursor: pointer;">
+
+                  <option value="">Please select</option>
+                  <option value="Active">Active</option>
+                  <option value="Inactive">Inactive</option>
+
+                </select>
+
+                <div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
+                  <div *ngIf="status.errors.required" style="text-align: left;"> Status is required</div>
+
+
+                </div>
+                <!-- <span class="alertRedColor"> {{form.inputerror.enqmode}} </span> -->
+              </div>
+            </div>
+
+            <div class="form-group form-row">
+              <label for="Reffere By" class="col-sm-2 col-form-label col-form-label-sm">Reffere By <font color ="red">*</font></label>
+              <div class="col">
+
+
+                <select class="form-control" name="refby" placeholder="Enter Reffered By" id="refby"
+                  [(ngModel)]="form.data.refby " #refby="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && gender.invalid }" required>
+
+                  style="cursor: pointer;">
+
+                  <option value="">Please select</option>
+                  <option value="Friend"> Friend</option>
+                  <option value="By Google">By Google</option>
+
+                </select>
+
+                <div *ngIf="f.submitted && refby.invalid" class="invalid-feedback">
+                  <div *ngIf="refby.errors.required" style="text-align: left;"> Reffered is required</div>
+
+
+                </div>
+                <!-- <span class="alertRedColor"> {{form.inputerror.enqmode}} </span> -->
+              </div>
+
+              <label for="nfudate" class="col-sm-2 col-form-label col-form-label-sm">Next Followup Date <font color ="red">*</font></label>
+              <div class="col">
+                <input id="nfudate" name="nfudate" placeholder="" type="date" class="form-control form-control-sm"
+                  required [(ngModel)]="form.data.nfudate" #nfudate="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && nfudate.invalid }" required>
+                <div *ngIf="f.submitted && nfudate.invalid" class="invalid-feedback">
+                  <div *ngIf="nfudate.errors.required" style="text-align: left;"> Next Followup Date is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group form-row">
+              <label for="gender" class="col-sm-2 col-form-label col-form-label-sm">Gender <font color ="red">*</font></label>
+              <div class="col">
+
+
+                <select class="form-control" name="gender" placeholder="Enter Status" id="gender"
+                  [(ngModel)]="form.data.gender " #gender="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && gender.invalid }" required>
+
+                  style="cursor: pointer;">
+
+                  <option value="">Please select</option>
+                  <option value="Male">Male </option>
+                  <option value="Female">Female </option>
+
+                </select>
+
+                <div *ngIf="f.submitted && gender.invalid" class="invalid-feedback">
+                  <div *ngIf="gender.errors.required" style="text-align: left;"> gender is required</div>
+
+
+                </div>
+                <!-- <span class="alertRedColor"> {{form.inputerror.gender}} </span> -->
+              </div>
+
+              <label for="dob" class="col-sm-2 col-form-label col-form-label-sm">DOB <font color ="red">*</font></label>
+              <div class="col">
+                <input id="dob" name="dob" placeholder="Enter Status" type="date" class="form-control form-control-sm"
+                  required [(ngModel)]="form.data.dob" #dob="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && dob.invalid }" required>
+                <div *ngIf="f.submitted && dob.invalid" class="invalid-feedback">
+                  <div *ngIf="dob.errors.required" style="text-align: left;"> DOB is required</div>
+                </div>
+              </div>
+
+            </div>
+            <div class="form-group form-row">
+              <label for="address" class="col-sm-2 col-form-label col-form-label-sm">Address <font color ="red">*</font></label>
+              <div class="col">
+                <input id="address" name="address" placeholder="Enter Address" type="text"
+                  class="form-control form-control-sm" required [(ngModel)]="form.data.address" #address="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && address.invalid }" required>
+                <div *ngIf="f.submitted && address.invalid" class="invalid-feedback">
+                  <div *ngIf="address.errors.required" style="text-align: left;"> address is required</div>
+                </div>
+              </div>
+
+              <label for="AttendBy" class="col-sm-2 col-form-label col-form-label-sm">Attend By <font color ="red">*</font></label>
+              <div class="col">
+
+
+                <select class="form-control" name="attendby" placeholder="Enter AttendBy " id="attendby"
+                  [(ngModel)]="form.data.attendby" #attendby="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && gender.invalid }" required>
+
+                  style="cursor: pointer;">
+
+                  <option value="">Please select</option>
+                  <option value="Faculty">Faculty</option>
+                  <option value="Admin"> Admin</option>
+
+                </select>
+
+                <div *ngIf="f.submitted && attendby.invalid" class="invalid-feedback">
+                  <div *ngIf="attendby.errors.required" style="text-align: left;"> Attend by is required</div>
+
+
+                </div>
+                <!-- <span class="alertRedColor"> {{form.inputerror.enqmode}} </span> -->
+              </div>
+            </div>
+
+
+            <div class="form-group form-row">
+              <label for="Training" class="col-sm-2 col-form-label col-form-label-sm">Training <font color ="red">*</font></label>
+              <div class="col">
+
+
+                <select class="form-control" name="training" placeholder="Enter TrainingBy" id="training"
+                  [(ngModel)]="form.data.training" #training="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && gender.invalid }" required>
+
+                  style="cursor: pointer;">
+
+                  <option value="">Please select</option>
+                  <option value="Corporate Java">Corporate Java</option>
+                  <option value="Corporate Cloud">Corporate Cloud</option>
+
+                </select>
+
+                <div *ngIf="f.submitted && training.invalid" class="invalid-feedback">
+                  <div *ngIf="training.errors.required" style="text-align: left;"> Training is required</div>
+
+
+                </div>
+                <!-- <span class="alertRedColor"> {{form.inputerror.enqmode}} </span> -->
+              </div>
+
+              <label for="remark" class="col-sm-2 col-form-label col-form-label-sm">Remark <font color ="red">*</font></label>
+              <div class="col">
+                <input id="remark" name="remark" placeholder="Enter Remark" type="text"
+                  class="form-control form-control-sm" required [(ngModel)]="form.data.remark" #remark="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && remark.invalid }" required>
+                <div *ngIf="f.submitted && remark.invalid" class="invalid-feedback">
+                  <div *ngIf="remark.errors.required" style="text-align: left;"> remark is required</div>
+                </div>
+              </div>
+            </div>
+
+
+
+            <div class="modal-footer">
+              <button class="btn btn-outline-primary btn-sm">
+                <i class="fa fa-save"></i>
+                Save
+              </button>
+              <button class="btn btn-outline-secondary btn-sm" data-dismiss="modal"><i class="fa fa-window-close"></i>
+                Close</button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+
+
+    </div>
+
+
+    <div class="col-sm-3">
+
+
+
+    </div>
+  </div>
+</div>

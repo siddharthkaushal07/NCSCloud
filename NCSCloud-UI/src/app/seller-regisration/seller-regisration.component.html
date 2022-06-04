@@ -1,0 +1,77 @@
+
+<!------ Include the above in your HEAD tag ---------->
+<h3 class="text-left"> Seller-Registration</h3>
+    <div class="container">
+       
+        <div class="row ">
+        
+            <div class="card ">
+				<div class="card-body">
+					<form name="form" #f="ngForm" (ngSubmit)="save()">
+						<div class="form-group">
+                            <div *ngIf="!form.error && form.message != null" class="alert alert-success alert-dismissible col text-center">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                {{form.message}}
+                              </div>
+                            <div  *ngIf="form.error && form.message!= null" class="alert alert-danger alert-dismissible col text-center">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                 {{form.message}}
+                              </div>
+                            <h2>Create account</h2>
+						</div>
+						<div class="form-group">
+							<label class="control-label" for="signupName">Your name</label>
+							<input id="signupName" type="text" maxlength="50" class="form-control" [(ngModel)]="form.data.name" name="name" >
+						</div>
+						<div class="form-group">
+							<label class="control-label" for="signupEmail">Email</label>
+							<input id="signupEmail" type="email" maxlength="50" class="form-control" [(ngModel)]="form.data.login" name="login"  >
+						</div>
+						
+						<div class="form-group">
+							<label class="control-label" for="signupPassword">Password</label>
+							<input id="signupPassword" type="password" maxlength="25" class="form-control" placeholder="at least 6 characters" length="40" 
+                            [(ngModel)]="form.data.password" name="password" >
+						</div>
+					  <div class="form-group">
+							<label class="control-label" for="signupPasswordagain">Business Name</label>
+							<input id="signupPasswordagain" type="text" maxlength="25" class="form-control" [(ngModel)]="form.data.businessName" name="businessName">
+						</div> 
+						
+
+                        <div class="form-group">
+							<label class="control-label" for="signupName">Address</label>
+							<input id="signupName" type="text" maxlength="50" class="form-control" [(ngModel)]="form.data.address" name="address" >
+						</div>
+                        <div class="form-group">
+							<label class="control-label" for="signupName">City</label>
+							<input id="signupName" type="text" maxlength="30" class="form-control" [(ngModel)]="form.data.city" name="city" >
+						</div>
+
+                        <div class="form-group">
+							<label class="control-label" for="signupName">State</label>
+							<input id="signupName" type="text" maxlength="30" class="form-control" [(ngModel)]="form.data.state" name="state" >
+						</div>
+
+                        <div class="form-group">
+							<label class="control-label" for="signupName">Mobile No</label>
+							<input id="signupName" type="number" maxlength="10" class="form-control" [(ngModel)]="form.data.mobile" name="mobile" >
+						</div>
+
+                        <div class="form-group">
+							<label class="control-label" for="signupName">PinCode</label>
+							<input id="signupName" type="number" maxlength="50" class="form-control" [(ngModel)]="form.data.pincode" name="pincode" >
+						</div>
+
+                        <div class="form-group">
+							<button id="signupSubmit" type="submit" class="btn btn-info btn-block" >Create your account</button>
+						</div>
+
+						<p class="form-group">By creating an account, you agree to our <a href="#">Terms of Use</a> and our <a href="#">Privacy Policy</a>.</p>
+						<hr>
+						<p>Already have an account? <a href="#">Sign in</a></p>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>

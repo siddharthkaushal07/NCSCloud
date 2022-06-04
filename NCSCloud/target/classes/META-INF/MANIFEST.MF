@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Build-Jdk-Spec: 16
+Implementation-Title: NCSCloud
+Implementation-Version: v1
+Main-Class: com.sunilos.NcsCloudApp
+Created-By: Maven Integration for Eclipse
+

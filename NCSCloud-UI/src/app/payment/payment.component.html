@@ -1,0 +1,143 @@
+<br>
+<div class="row">
+  &nbsp; &nbsp; &nbsp;
+<button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Product Deatils</button>
+  &nbsp; &nbsp; <h4 style="text-align: left;">Total Amount:- {{grandTotal}} </h4>
+  &nbsp; 
+ 
+</div>
+<div>
+  <h6 style="text-align: right;">Arrival Date:-  {{date  | date:'dd-MM-yyyy'}}
+  </h6>
+</div>
+&nbsp;
+<div class="row">
+  <div class="col-md-3" *ngFor="let e of form.list;">
+    <div class="collapse multi-collapse" id="multiCollapseExample1">
+      <div class="card card-body"  >
+        <div>
+  
+          <img src="http://nenosystems.com:9097/NCSDOCS/api/doc/{{e.image_id}}" height="55px" width="80px">
+        </div>
+       <ul>
+        <li>Name: {{e.productName}} </li>
+        <li>Price: {{e.price}} </li>
+        <li>ModelNo: {{e.model_no}} </li>
+        <li>Quantity: {{e.quantity}} </li>
+       </ul>
+      
+      </div>
+    </div>
+  </div>
+ </div>
+
+
+<hr>
+  <div class="card " style="width: 18rem;">
+    <div class="text-center">      
+    <h4 >Select Payment Option</h4>
+    </div>
+    <div class="card-body">
+        <div class="form-check">
+            <input  class="form-check-input" (change)="offButton2();changePayMode($event);" value="{{'COD'}}"  type="radio" checked="checked"  name="flexRadioDefault" id="flexRadioDefault1">
+            <label class="form-check-label" for="flexRadioDefault1">
+              Cash On Delivery
+            </label>
+          </div>
+          <div class="form-check" (click)="proceed()">
+            <input class="form-check-input" (change)="offButton();changePayMode($event);"  type="radio" value="{{'Pay_With_Card'}}" name="flexRadioDefault" id="flexRadioDefault2" >
+            <label class="form-check-label" for="flexRadioDefault2">
+              Pay with card
+            </label>
+          </div>
+          
+  
+</div>
+<div *ngIf="off">
+  <button   type="button"   class="col-sm-6 btn btn-primary btn-sm"
+  
+  (click)="addCart()">
+    Place Order</button>
+
+<button  type="button" (click)="getMaxbid()"  class="col-sm-6 btn btn-danger btn-sm" routerLink="/shopping">Cancel Order</button>
+</div>
+<div *ngIf="!off">
+  
+<button  type="button" (click)="getMaxbid()"  class="col-sm-12 btn btn-danger btn-sm" routerLink="/shopping">Cancel Order</button>
+</div>
+
+
+
+<hr>
+<hr>
+
+<!--   
+   
+  
+
+
+
+
+    </div>
+
+
+    <table class="table table-sm table-striped my-1 ">
+      <thead>
+        <tr>
+          <th style="width: 44px;">S.No.</th>
+          <th style="width: 200px;">Name</th>
+          <th style="width: 200px;">Image</th>
+          <th style="width: 200px;">Price</th>
+          <th style="width: 200px;">Gst</th>
+          <th style="width: 150px;">Model No</th>
+
+         <th>Quantity</th>
+
+        
+  
+          <th align="right">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let e of form.list; let i = index">
+          <td>{{pageIndex(i)}}</td>
+          <td>
+            <i *ngIf="e.status == 'Active'" class='fas fa-user-alt primary' style='font-size: 12px; color: green'>
+            </i>
+  
+            <i *ngIf="e.status != 'Active'" class='fa fa-product-hunt primary' style='font-size: 12px; color: grey'>
+            </i> {{e.productName}}
+          </td>
+
+          <td >
+            <div>
+  
+            <img src="http://nenosystems.com:9097/NCSDOCS/api/doc/{{e.image_id}}" height="55px" width="80px">
+          </div>
+          
+          </td> 
+          
+          <td >{{e.price}}</td>
+          <td>{{e.gst}}</td>
+          <td>{{e.model_no}}</td>
+          <td><input type="number"min="1" class="form-control" (change)="saveQuantity(form.list[i].quantity,form.list[i].productName,form.list[i].image_id,form.list[i].price,form.list[i].gst,form.list[i].model_no,form.list[i].id)" style="width: 50%;" name="quantity" [(ngModel)]="form.list[i].quantity"></td>
+          
+          <td><input type="number"min="1" class="form-control" (change)="saveQuantity(form.list[i].quantity,form.list[i].productName,form.list[i].image_id,form.list[i].price,form.list[i].gst,form.list[i].model_no,form.list[i].id)" style="width: 20%;" name="quantity" [(ngModel)]="form.list[i].quantity"></td> -->
+
+
+        
+            <!-- <td align="right">
+            <div class="row"> -->
+              <!-- <button title="Edit" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#editModal"
+                (click)="get(e.id)">
+                <i class="fa fa-edit"></i>
+              </button> &nbsp; -->
+              <!-- <button title="Delete" class="btn btn-outline-danger btn-sm" (click)="delete(e.id)">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table> --> 
+   

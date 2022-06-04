@@ -1,0 +1,65 @@
+server:
+   port: 9102
+   application:
+      name: NCSCloud
+   servlet:
+      context-path: /NCSCloud
+eureka:
+   client:
+      enabled: false
+      service-url:
+         default-zone: http://nenosystems.in:8761/eureka
+
+
+#server.error.whitelabel.enabled=false ; disable error page
+
+
+spring:
+   error:
+      whitelabel: 
+         enabled: false
+   profiles:
+      include: main
+   datasource:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/NCS_cloud
+      username: root
+      password: root
+   jpa:
+      generate-ddl: true
+      show-sql: true
+      properties:
+         hibernate:
+            format_sql: true
+            show-sql: true
+            ddl-auto: update
+            #dialect: org.hibernate.dialect.MariaDB53Dialect
+            dialect: org.hibernate.dialect.MySQL5Dialect
+   mail:
+#current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
+      host: smtp.gmail.com
+      port: 587
+      username: webmaster@sunrays.co.in
+      password: PA$$1234
+      properties:
+         mail:
+            smtp:
+               auth: true
+               starttls:
+                  enable: true
+ncs:
+   page:
+      size: 50
+   app:
+      id: 1630402434783
+   doc:
+      #Store log file
+      #path: /opt/ncssuite/
+      path: G:/temp/ncssuitedoc/ 
+      #Read and write doc files
+      url: http://nenosystems.com:9097/NCSDOCS/api/doc/
+   sso:
+      #Login and authentication
+      auth: http://nenosystems.com:9095/NCSSSO/auth/
+   email:
+        url: http://nenosystems.com:9096/NCSMSG/api/email/

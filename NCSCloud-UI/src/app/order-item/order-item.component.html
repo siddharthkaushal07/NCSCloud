@@ -1,0 +1,384 @@
+<hr>
+
+ 
+
+<h2 align="left"> Order Item List </h2>
+
+<div class="container">
+  <form class="form-inline my-2">
+    <label for="productName" class="ml-sm-2"> Product_Name:</label>
+
+    <input type="text" name="productName" id="productName" class="form-control form-control-sm ml-2"
+      placeholder="productName" [(ngModel)]="form.searchParams.productName">
+
+    <label for="orderId" class="ml-sm-2"> Search by OrderNo : </label>
+    <select [(ngModel)]="form.searchParams.order_id" class="form-control form-control-sm ml-2" name="orderId">
+
+      <option style="font-weight: bold;" [value]=default [disabled]="true" disabled selected>-OrdeNo-</option>
+      <option *ngFor="let l of form.preload.orderNo" [value]="l.order_id">
+        {{l.order_id}}
+      </option>
+    </select>
+    <button (click)="search()" class="btn btn-outline-primary btn-sm ml-2"><i class="fa fa-search-plus"></i>
+      Search</button>
+    <button type="reset" class="btn btn-outline-danger btn-sm ml-2"><i class="fas fa-circle-notch"></i>
+      Reset</button>
+
+  </form>
+
+  <!-- <div *ngFor="let i of orderFormList"> -->
+
+
+  <div *ngFor="let earr of orderFormList;let i = index" >
+    <div >
+      <!-- data-toggle="modal" data-target="#myModal" -->
+      <!-- <a class="text-dark" style="cursor: pointer; text-decoration: none;"> -->
+      &nbsp; &nbsp;
+      <div>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse"
+          aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Order_Number:-
+          {{earr.order_id}}</button>
+          <div class="text-right">
+            <button class="btn btn-warning" type="button" data-toggle="collapse" data-target=".multi-collapse"
+            aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Total Price:-
+            {{earr.total_price}}</button></div>
+            <b>Order Date:- </b> {{earr.order_date|dateFormater}}
+           <br>
+            <b>Delivery Date:- </b>{{earr.delivery_date}}
+      </div>
+
+      &nbsp; 
+      <div class="row  bg-light " *ngFor="let e of orderList[i];">
+
+        <div class="col-xs-1"></div>
+        <div class="col-md-2">
+
+          <img src="http://nenosystems.com:9097/NCSDOCS/api/doc/{{e.image_id}}" height="100px" width="100px">
+        </div>
+        <div class="col-md-4">
+          <ol style="list-style-type:none;">
+            <li><b>Product Name:- </b>{{e.productName}}</li>
+            <li><b>Model No:- </b>{{e.modelNo}}</li>
+
+            <li><b>Quantity:- </b>{{e.quantity}}</li>
+            <li><b>Price:- </b>{{e.price*e.quantity}}</li>
+            <li><b>Payment Mode:- </b>{{e.payment_mode}}</li>
+
+
+          </ol>
+        </div>
+        <!-- <div>Order_Date:- {{e.order_date|dateFormater}} &nbsp;
+          <br>
+          Delivery_Date:- {{e.delivery_date}}
+        </div> -->
+
+        <!-- <button title="Edit" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#editModal"
+            (click)="get(e.id)">
+            <i class="fa fa-edit"></i>
+          </button> &nbsp;
+          <button title="Delete" class="btn btn-outline-danger btn-sm" (click)="delete(e.id)">
+            <i class="fa fa-trash"></i>
+          </button>
+          &nbsp;
+
+
+          <input type="checkbox" name="button" [value]="checked" (change)="checkedShipp($event)"
+            (click)="getShipping(e.id)"> -->
+
+        <div class="col-md-4">
+          <hr>
+        </div>
+
+        <!-- </div> -->
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+
+
+
+
+
+
+
+
+<!-- <hr>
+<h2 align="left"> Order Item List </h2>
+
+
+<form class="form-inline my-2">
+  <label for="productName" class="ml-sm-2"> Product_Name:</label>
+
+  <input type="text" name="productName" id="productName" class="form-control form-control-sm ml-2"
+    placeholder="productName" [(ngModel)]="form.searchParams.productName">
+
+  <label for="orderId" class="ml-sm-2"> Search by OrderNo : </label>
+  <select [(ngModel)]="form.searchParams.order_id" class="form-control form-control-sm ml-2" name="orderId"
+    id="unitName">
+    <option></option>
+    <option style="font-weight: bold;" value="" disabled selected>-OrdeNo-</option>
+    <option *ngFor="let l of form.preload.orderNo" [value]="l.orderId">
+      {{l.orderId}}
+    </option>
+  </select>
+ <button (click)="search()" class="btn btn-outline-primary btn-sm ml-2"><i class="fa fa-search-plus"></i>
+    Search</button>
+ 
+</form> -->
+
+<!-- table start -->
+<!-- <div class="table-responsive pl-4 pr-4">
+  <table class="table table-sm table-striped table-bordered my-1 ">
+    <thead>
+      <tr>
+      <tr style="background: skyblue">
+        <th>S.No.</th>
+        <th>Image</th>
+        <th>Product_Name</th>
+        <th>Model_No</th>
+        <th>GST</th>
+        <th>Billing_Id</th>
+        <th>Shipping_Id</th>
+        <th>Price</th>
+        <th>Payment_Mode</th>
+
+        <th>Order_Date</th>
+        <th>Delivery_Date</th>
+        <th>Order_Id</th>
+        </tr>
+    </thead>
+    <tbody *ngFor="let earr of orderList">
+      <tr>Break</tr>
+      <tr *ngFor="let e of earr; let i = index">
+        <td>{{pageIndex(i)}}</td>
+        <td>
+          <div>
+
+            <img src="http://nenosystems.com:9097/NCSDOCS/api/doc/{{e.image_id}}" height="55px" width="80px">
+          </div>
+
+        </td>
+        <td>
+          <i *ngIf="e.status == 'Active'" class='fas fa-user-alt primary' style='font-size: 12px; color: green'>
+          </i>
+
+          <i *ngIf="e.status != 'Active'" class='fa fa-product-hunt primary' style='font-size: 12px; color: grey'>
+          </i> {{e.productName}}
+        </td>
+
+        <td>{{e.modelNo}}</td>
+        <td>{{e.gst}}</td>
+
+        <td>{{e.billing_Address_Id}}</td>
+        <td>{{e.shipping_Address_Id}}</td>
+        <td>{{e.price}}</td>
+        <td>{{e.payment_mode}}</td>
+
+
+   
+        <td>{{e.order_date}}</td>
+        <div style="width: 120px;">
+          <td>{{e.delivery_date}}</td>
+
+        </div>
+        <td>{{e.order_id}}</td> -->
+
+
+
+<!--   
+        <td >
+          <div class="row"  >
+            <button title="Edit" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#editModal"
+              (click)="get(e.id)">
+              <i class="fa fa-edit"></i>
+            </button> &nbsp;
+            <button title="Delete" class="btn btn-outline-danger btn-sm" (click)="delete(e.id)">
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
+        </td> -->
+<!-- </tr>
+    </tbody>
+  </table> -->
+
+<!-- table end -->
+<!-- </div> -->
+
+
+<!-- edit modal start -->
+
+<!-- <div class="modal" id="editModal" role="dialog">
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="model-dialog col-sm-6 mt-4  " role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Product</h5>
+          <button class="btn btn-outline-secondary btn-sm" data-dismiss="modal" aria-label="Close">
+            <i class="fa fa-window-close"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && placeOrder()" novalidate>
+            <p>
+              <form-error [form]="form"></form-error>
+            </p>
+
+            <div class="form-group form-row">
+              <label for="productName" class="col-sm-2 col-form-label col-form-label-sm">Product_Name </label>
+              <div class="col">
+                <input id="productName" name="productName" placeholder="Enter productName" type="text"
+                  class="form-control form-control-sm" [(ngModel)]="form.data.productName" #productName="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && productName.invalid }" required>
+                <div *ngIf="f.submitted && productName.invalid" class="invalid-feedback">
+                  <div *ngIf="productName.errors.required" style="text-align: left;"> productName is required</div>
+                </div>
+              </div>
+
+
+
+            </div>
+
+            <div class="form-group form-row">
+              <label for="name" class="col-sm-2 col-form-label col-form-label-sm">Model_No </label>
+              <div class="col">
+                <input id="modelNo" name="modelNo" placeholder="Enter Model_No" type="text"
+                  class="form-control form-control-sm" required [(ngModel)]="form.data.modelNo" #modelNo="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && modelNo.invalid }" required>
+                <div *ngIf="f.submitted && modelNo.invalid" class="invalid-feedback">
+                  <div *ngIf="modelNo.errors.required" style="text-align: left;"> Model_No is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group form-row">
+              <label for="name" class="col-sm-2 col-form-label col-form-label-sm">GST: </label>
+              <div class="col">
+                <input id="gst" name="gst" placeholder="Enter GST" type="text" class="form-control form-control-sm"
+                  required [(ngModel)]="form.data.gst" #gst="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && gst.invalid }" required>
+                <div *ngIf="f.submitted && gst.invalid" class="invalid-feedback">
+                  <div *ngIf="gst.errors.required" style="text-align: left;"> GST is required</div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+            <div class="form-group form-row">
+              <label for="name" class="col-sm-2 col-form-label col-form-label-sm">Billing_Address </label>
+              <div class="col">
+                <input id="billing_Address_Id" name="billing_Address_Id" placeholder="Enter billing_Address_Id"
+                  type="text" class="form-control form-control-sm" required [(ngModel)]="form.data.billing_Address_Id"
+                  #billing_Address_Id="ngModel" [ngClass]="{ 'is-invalid': f.submitted && billing_Address_Id.invalid }"
+                  required>
+                <div *ngIf="f.submitted && billing_Address_Id.invalid" class="invalid-feedback">
+                  <div *ngIf="billing_Address_Id.errors.required" style="text-align: left;"> billing_Address is required
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="form-group form-row">
+              <label for="shipping_Address_Id" class="col-sm-2 col-form-label col-form-label-sm">Shipping_Address
+              </label>
+              <div class="col">
+                <input id="shipping_Address_Id" name="shipping_Address_Id" placeholder="Enter shipping_Address_Id"
+                  type="text" class="form-control form-control-sm" required [(ngModel)]="form.data.shipping_Address_Id"
+                  #shipping_Address_Id="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && shipping_Address_Id.invalid }" required>
+                <div *ngIf="f.submitted && shipping_Address_Id.invalid" class="invalid-feedback">
+                  <div *ngIf="shipping_Address_Id.errors.required" style="text-align: left;"> shipping_Address_Id is
+                    required</div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+            <div class="form-group form-row">
+              <label for="payment_mode" class="col-sm-2 col-form-label col-form-label-sm">Payment_Mode </label>
+              <div class="col">
+                <input id="payment_mode" name="payment_mode" placeholder="Enter payment_mode" type="text"
+                  class="form-control form-control-sm" required [(ngModel)]="form.data.payment_mode"
+                  #payment_mode="ngModel" [ngClass]="{ 'is-invalid': f.submitted && payment_mode.invalid }" required>
+                <div *ngIf="f.submitted && payment_mode.invalid" class="invalid-feedback">
+                  <div *ngIf="payment_mode.errors.required" style="text-align: left;"> payment_mode is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group form-row">
+              <label for="name" class="col-sm-2 col-form-label col-form-label-sm">Image_Id </label>
+              <div class="col">
+                <input id="image_id" name="image_id" placeholder="Enter image_id" type="text"
+                  class="form-control form-control-sm" required [(ngModel)]="form.data.image_id" #image_id="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && image_id.invalid }" required>
+                <div *ngIf="f.submitted && image_id.invalid" class="invalid-feedback">
+                  <div *ngIf="image_id.errors.required" style="text-align: left;"> image_id is required</div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="form-group form-row">
+              <label for="total_price" class="col-sm-2 col-form-label col-form-label-sm">Image_Id </label>
+              <div class="col">
+                <input id="total_price" name="total_price" placeholder="Enter total_price" type="text"
+                  class="form-control form-control-sm" required [(ngModel)]="form.data.total_price"
+                  #total_price="ngModel" [ngClass]="{ 'is-invalid': f.submitted && total_price.invalid }" required>
+                <div *ngIf="f.submitted && image_id.invalid" class="invalid-feedback">
+                  <div *ngIf="total_price.errors.required" style="text-align: left;"> price is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group form-row">
+              <label for="price" class="col-sm-2 col-form-label col-form-label-sm">Image_Id </label>
+              <div class="col">
+                <input id="price" name="price" placeholder="Enter price" type="text"
+                  class="form-control form-control-sm" required [(ngModel)]="form.data.price" #price="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && price.invalid }" required>
+                <div *ngIf="f.submitted && price.invalid" class="invalid-feedback">
+                  <div *ngIf="price.errors.required" style="text-align: left;"> price is required</div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="modal-footer">
+              <button class="btn btn-outline-primary btn-sm">
+                <i class="fa fa-save"></i>
+                Save
+              </button>
+              <button class="btn btn-outline-secondary btn-sm" data-dismiss="modal"><i class="fa fa-window-close"></i>
+                Close</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-sm-3">
+
+
+
+      </div>
+    </div>
+  </div>
+</div> -->

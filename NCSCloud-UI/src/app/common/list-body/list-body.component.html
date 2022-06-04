@@ -1,0 +1,34 @@
+<table class="table table-sm table-striped my-1 ">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th *ngFor="let e of $parent.listMetaData; let i = index">
+                {{e.label}}
+            </th>
+            <th align="right">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let e of $parent.form.list; let i = index">
+            <td>{{$parent.pageIndex(i)}}</td>
+            <td><a href="{{$parent.getDoc(e.skey)}}" target="_blank">
+                    <img src="{{$parent.getDocThumbnail(e.skey)}}" width="50px">
+                </a>
+            </td>
+            <td>{{e.orgName}}</td>
+            <td> {{e.name}} (!! {{e.skey}} )</td>
+            <td>{{e.type}}</td>
+            <td>{{e.size/1024 | number :'1.0-0'}} KB </td>
+            <td>{{e.path}}</td>
+            <td>{{e.tags}}</td>
+            <td>{{e.description}}</td>
+            <td align="left">
+                <a title="View" href="{{$parent.getDoc(e.skey)}}" target="_blank"
+                    class="btn btn-outline-primary btn-sm"><i class="fa fa-eye"></i></a>&nbsp;
+                <a title="Edit" href="#" class="btn btn-outline-success btn-sm"><i class="fa fa-edit"></i></a>&nbsp;
+                <a title="Delete" (click)="$parent.delete(e.id)" class="btn btn-outline-danger btn-sm"><i
+                        class="fa fa-trash"></i></a>
+            </td>
+        </tr>
+    </tbody>
+</table>
